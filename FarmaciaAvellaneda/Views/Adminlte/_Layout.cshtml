@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -7,6 +11,7 @@
 
     <title>Adminlte 3 | Starter</title>
     <partial name="~/Views/Adminlte/_Styles.cshtml" />
+
 </head>
 <body class=" layout-fixed sidebar-mini">
     <div class="wrapper">

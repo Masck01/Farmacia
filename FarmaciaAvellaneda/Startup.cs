@@ -43,6 +43,7 @@ namespace FarmaciaAvellaneda
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
+                app.UseBrowserLink();
             }
             else
             {
