@@ -12,6 +12,7 @@ using FarmaciaAvellaneda.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using FarmaciaAvellaneda.Models;
 
 namespace FarmaciaAvellaneda
 {
@@ -30,6 +31,9 @@ namespace FarmaciaAvellaneda
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<FarmaciaAvellanedaContext>(opt =>
+                opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
+            );
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();

@@ -48,7 +48,7 @@ namespace FarmaciaAvellaneda.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(Config.GetConnectionString("DefaultConnectionString"));
+                optionsBuilder.UseSqlServer(Config.GetConnectionString("DefaultConnection"));
             }
         }
 
