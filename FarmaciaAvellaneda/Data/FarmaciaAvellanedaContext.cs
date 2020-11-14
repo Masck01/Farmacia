@@ -44,13 +44,13 @@ namespace FarmaciaAvellaneda.Models
         public virtual DbSet<SubCategoria> SubCategoria { get; set; }
         public virtual DbSet<Venta> Venta { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer(Config.GetConnectionString("DefaultConnection"));
-            }
-        }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    if (!optionsBuilder.IsConfigured)
+        //    {
+        //        optionsBuilder.UseSqlServer(Config.GetConnectionString("DefaultConnection"));
+        //    }
+        //}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -533,15 +533,15 @@ namespace FarmaciaAvellaneda.Models
 
             modelBuilder.Entity<Pago>(entity =>
             {
-                entity.HasKey(e => e.IdPago)
+                entity.HasKey(e => e.Id)
                     .HasName("PK__Pago__BD2295AD89B57E9B");
 
                 entity.HasIndex(e => e.VentaId)
                     .HasName("UQ__Pago__40B8EB5565F786B6")
                     .IsUnique();
 
-                entity.Property(e => e.IdPago)
-                    .HasColumnName("idPago")
+                entity.Property(e => e.Id)
+                    .HasColumnName("Id")
                     .ValueGeneratedNever();
 
                 entity.Property(e => e.Monto).HasColumnName("monto");

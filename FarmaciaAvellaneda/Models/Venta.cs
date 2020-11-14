@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace FarmaciaAvellaneda.Models
 {
@@ -10,7 +11,7 @@ namespace FarmaciaAvellaneda.Models
             LineaDeVenta = new HashSet<LineaDeVenta>();
             MovimientoCaja = new HashSet<MovimientoCaja>();
         }
-
+        [Key]
         public int IdVenta { get; set; }
         public DateTime? FechaVenta { get; set; }
         public double? Total { get; set; }

@@ -5,90 +5,89 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using FarmaciaAvellaneda.Data;
 using FarmaciaAvellaneda.Models;
 
 namespace FarmaciaAvellaneda.Controllers
 {
-    public class CajasController : Controller
+    public class RolesController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly FarmaciaAvellanedaContext _context;
 
-        public CajasController(ApplicationDbContext context)
+        public RolesController(FarmaciaAvellanedaContext context)
         {
             _context = context;
         }
 
-        // GET: Cajas
+        // GET: Roles
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Caja.ToListAsync());
+            return View(await _context.AspNetRoles.ToListAsync());
         }
 
-        // GET: Cajas/Details/5
-        public async Task<IActionResult> Details(int? id)
+        // GET: Roles/Details/5
+        public async Task<IActionResult> Details(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var caja = await _context.Caja
-                .FirstOrDefaultAsync(m => m.IdCaja == id);
-            if (caja == null)
+            var aspNetRoles = await _context.AspNetRoles
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (aspNetRoles == null)
             {
                 return NotFound();
             }
 
-            return View(caja);
+            return View(aspNetRoles);
         }
 
-        // GET: Cajas/Create
+        // GET: Roles/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Cajas/Create
+        // POST: Roles/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdCaja,Nombre,Estado,Saldo")] Caja caja)
+        public async Task<IActionResult> Create([Bind("Id,Name,NormalizedName,ConcurrencyStamp")] AspNetRoles aspNetRoles)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(caja);
+                _context.Add(aspNetRoles);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(caja);
+            return View(aspNetRoles);
         }
 
-        // GET: Cajas/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        // GET: Roles/Edit/5
+        public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var caja = await _context.Caja.FindAsync(id);
-            if (caja == null)
+            var aspNetRoles = await _context.AspNetRoles.FindAsync(id);
+            if (aspNetRoles == null)
             {
                 return NotFound();
             }
-            return View(caja);
+            return View(aspNetRoles);
         }
 
-        // POST: Cajas/Edit/5
+        // POST: Roles/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdCaja,Nombre,Estado,Saldo")] Caja caja)
+        public async Task<IActionResult> Edit(string id, [Bind("Id,Name,NormalizedName,ConcurrencyStamp")] AspNetRoles aspNetRoles)
         {
-            if (id != caja.IdCaja)
+            if (id != aspNetRoles.Id)
             {
                 return NotFound();
             }
@@ -97,12 +96,12 @@ namespace FarmaciaAvellaneda.Controllers
             {
                 try
                 {
-                    _context.Update(caja);
+                    _context.Update(aspNetRoles);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CajaExists(caja.IdCaja))
+                    if (!AspNetRolesExists(aspNetRoles.Id))
                     {
                         return NotFound();
                     }
@@ -113,41 +112,41 @@ namespace FarmaciaAvellaneda.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(caja);
+            return View(aspNetRoles);
         }
 
-        // GET: Cajas/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        // GET: Roles/Delete/5
+        public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var caja = await _context.Caja
-                .FirstOrDefaultAsync(m => m.IdCaja == id);
-            if (caja == null)
+            var aspNetRoles = await _context.AspNetRoles
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (aspNetRoles == null)
             {
                 return NotFound();
             }
 
-            return View(caja);
+            return View(aspNetRoles);
         }
 
-        // POST: Cajas/Delete/5
+        // POST: Roles/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var caja = await _context.Caja.FindAsync(id);
-            _context.Caja.Remove(caja);
+            var aspNetRoles = await _context.AspNetRoles.FindAsync(id);
+            _context.AspNetRoles.Remove(aspNetRoles);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CajaExists(int id)
+        private bool AspNetRolesExists(string id)
         {
-            return _context.Caja.Any(e => e.IdCaja == id);
+            return _context.AspNetRoles.Any(e => e.Id == id);
         }
     }
 }

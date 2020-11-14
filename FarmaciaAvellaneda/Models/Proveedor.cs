@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace FarmaciaAvellaneda.Models
 {
@@ -9,7 +10,7 @@ namespace FarmaciaAvellaneda.Models
         {
             Producto = new HashSet<Producto>();
         }
-
+        [Key]
         public int IdProveedor { get; set; }
         public string RazonSocial { get; set; }
         public int? Cuit { get; set; }
