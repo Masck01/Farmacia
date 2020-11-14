@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace FarmaciaAvellaneda.Models
 {
     public partial class LineaDeCompra
     {
+        [Key]
         public int IdLineadecompra { get; set; }
         public double? Subtotal { get; set; }
         public int? Cantidad { get; set; }

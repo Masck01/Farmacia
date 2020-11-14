@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace FarmaciaAvellaneda.Models
 {
     public partial class AspNetUserTokens
     {
+        [Key]
         public string UserId { get; set; }
         public string LoginProvider { get; set; }
         public string Name { get; set; }

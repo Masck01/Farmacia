@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace FarmaciaAvellaneda.Models
 {
     public partial class MovimientoCaja
     {
+        [Key]
         public int IdMovimientoCaja { get; set; }
         public string Descripcion { get; set; }
         public int CajaId { get; set; }
