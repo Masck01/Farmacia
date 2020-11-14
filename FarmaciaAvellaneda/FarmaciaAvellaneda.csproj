@@ -20,6 +20,10 @@
     <Compile Remove="Data\Migrations\20201114035919_Roles.Designer.cs" />
     <Compile Remove="Data\Migrations\20201114040713_Roles.cs" />
     <Compile Remove="Data\Migrations\20201114040713_Roles.Designer.cs" />
+    <Compile Remove="Data\Migrations\20201114163749_Roles.cs" />
+    <Compile Remove="Data\Migrations\20201114163749_Roles.Designer.cs" />
+    <Compile Remove="Migrations\20201114163914_AfterRoles.cs" />
+    <Compile Remove="Migrations\20201114163914_AfterRoles.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -36,6 +40,10 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.2.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>
