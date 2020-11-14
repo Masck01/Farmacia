@@ -6,7 +6,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Data\Migrations\20201114005759_SecondMigration.cs" />
+    <Compile Remove="Data\Migrations\20201114005759_SecondMigration.Designer.cs" />
+    <Compile Remove="Data\Migrations\20201114023746_ThirdMigration.cs" />
+    <Compile Remove="Data\Migrations\20201114023746_ThirdMigration.Designer.cs" />
+    <Compile Remove="Data\Migrations\20201114023850_ThirdMigration.cs" />
+    <Compile Remove="Data\Migrations\20201114023850_ThirdMigration.Designer.cs" />
+    <Compile Remove="Data\Migrations\20201114032132_ThirdMigration.cs" />
+    <Compile Remove="Data\Migrations\20201114032132_ThirdMigration.Designer.cs" />
+    <Compile Remove="Data\Migrations\20201114034534_Roles.cs" />
+    <Compile Remove="Data\Migrations\20201114034534_Roles.Designer.cs" />
+    <Compile Remove="Data\Migrations\20201114035919_Roles.cs" />
+    <Compile Remove="Data\Migrations\20201114035919_Roles.Designer.cs" />
+    <Compile Remove="Data\Migrations\20201114040713_Roles.cs" />
+    <Compile Remove="Data\Migrations\20201114040713_Roles.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.9" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.10" />
