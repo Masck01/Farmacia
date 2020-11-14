@@ -6,22 +6,25 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FarmaciaAvellaneda.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace FarmaciaAvellaneda.Controllers
 {
     public class RolesController : Controller
     {
         private readonly FarmaciaAvellanedaContext _context;
+        private readonly RoleManager<IdentityRole> roleManager;
 
-        public RolesController(FarmaciaAvellanedaContext context)
+        public RolesController(FarmaciaAvellanedaContext context, RoleManager<IdentityRole> role)
         {
             _context = context;
+            roleManager = role;
         }
 
         // GET: Roles
         public async Task<IActionResult> Index()
         {
-            return View(await _context.AspNetRoles.ToListAsync());
+            return View(await roleManager.Roles.ToListAsync<IdentityRole>());
         }
 
         // GET: Roles/Details/5
@@ -53,13 +56,21 @@ namespace FarmaciaAvellaneda.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,NormalizedName,ConcurrencyStamp")] AspNetRoles aspNetRoles)
+        //public async Task<IActionResult> Create([Bind("Id,Name,NormalizedName,ConcurrencyStamp")] AspNetRoles aspNetRoles)
+        public async Task<IActionResult> Create([Bind("Name")] AspNetRoles aspNetRoles)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(aspNetRoles);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                IdentityResult rol = await roleManager.CreateAsync(new IdentityRole(aspNetRoles.Name));
+                //_context.Add(aspNetRoles);
+                //await _context.SaveChangesAsync();
+                //return RedirectToAction(nameof(Index));
+                if (rol.Succeeded)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                    Errors(rol);
             }
             return View(aspNetRoles);
         }
@@ -147,6 +158,14 @@ namespace FarmaciaAvellaneda.Controllers
         private bool AspNetRolesExists(string id)
         {
             return _context.AspNetRoles.Any(e => e.Id == id);
+        }
+
+        private void Errors(IdentityResult rol)
+        {
+            foreach(IdentityError error in rol.Errors)
+            {
+                ModelState.AddModelError("", error.Description);
+            }
         }
     }
 }
