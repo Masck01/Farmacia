@@ -1,5 +1,4 @@
 ﻿@*@model IEnumerable<FarmaciaAvellaneda.Models.AspNetUsers>*@
-@using Microsoft.AspNetCore.Identity
 @model IEnumerable<IdentityUser>
 
 @{
@@ -18,7 +17,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.UserName)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.NormalizedUserName)
             </th>
             <th>
@@ -26,11 +25,11 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.NormalizedEmail)
-            </th>
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.EmailConfirmed)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.PasswordHash)
             </th>
             <th>
@@ -53,10 +52,11 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.LockoutEnabled)
-            </th>
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.AccessFailedCount)
             </th>
+            <th>Rol</th>
             <th></th>
         </tr>
     </thead>
@@ -66,19 +66,19 @@
             <td>
                 @Html.DisplayFor(modelItem => item.UserName)
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.NormalizedUserName)
-            </td>
+            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.NormalizedEmail)
-            </td>
+            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.EmailConfirmed)
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.PasswordHash)
             </td>
             <td>
@@ -101,6 +101,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.LockoutEnabled)
+            </td>*@
+            <td i-role="@item.Id">
+
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.AccessFailedCount)
