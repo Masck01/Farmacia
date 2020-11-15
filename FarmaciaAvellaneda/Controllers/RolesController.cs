@@ -160,6 +160,7 @@ namespace FarmaciaAvellaneda.Controllers
             return _context.AspNetRoles.Any(e => e.Id == id);
         }
 
+        // HandleErrors
         private void Errors(IdentityResult rol)
         {
             foreach(IdentityError error in rol.Errors)

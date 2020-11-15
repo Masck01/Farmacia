@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -6,6 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Data\Migrations\00000000000000_CreateIdentitySchema.cs" />
+    <Compile Remove="Data\Migrations\00000000000000_CreateIdentitySchema.Designer.cs" />
     <Compile Remove="Data\Migrations\20201114005759_SecondMigration.cs" />
     <Compile Remove="Data\Migrations\20201114005759_SecondMigration.Designer.cs" />
     <Compile Remove="Data\Migrations\20201114023746_ThirdMigration.cs" />
@@ -22,8 +24,32 @@
     <Compile Remove="Data\Migrations\20201114040713_Roles.Designer.cs" />
     <Compile Remove="Data\Migrations\20201114163749_Roles.cs" />
     <Compile Remove="Data\Migrations\20201114163749_Roles.Designer.cs" />
+    <Compile Remove="Data\Migrations\20201114164313_AfterRoles.cs" />
+    <Compile Remove="Data\Migrations\20201114164313_AfterRoles.Designer.cs" />
+    <Compile Remove="Data\Migrations\20201114215327_Empleados.cs" />
+    <Compile Remove="Data\Migrations\20201114215327_Empleados.Designer.cs" />
+    <Compile Remove="Data\Migrations\20201114220042_Empleados.cs" />
+    <Compile Remove="Data\Migrations\20201114220042_Empleados.Designer.cs" />
+    <Compile Remove="Data\Migrations\20201114220332_FirstMigration.cs" />
+    <Compile Remove="Data\Migrations\20201114220332_FirstMigration.Designer.cs" />
     <Compile Remove="Migrations\20201114163914_AfterRoles.cs" />
     <Compile Remove="Migrations\20201114163914_AfterRoles.Designer.cs" />
+    <Compile Remove="Migrations\20201114215533_Empleados.cs" />
+    <Compile Remove="Migrations\20201114215533_Empleados.Designer.cs" />
+    <Compile Remove="Migrations\20201114220440_FirstMigration.cs" />
+    <Compile Remove="Migrations\20201114220440_FirstMigration.Designer.cs" />
+    <Compile Remove="Migrations\20201114220747_FirstMigration.cs" />
+    <Compile Remove="Migrations\20201114220747_FirstMigration.Designer.cs" />
+    <Compile Remove="Migrations\20201114221036_SecondMigration.cs" />
+    <Compile Remove="Migrations\20201114221036_SecondMigration.Designer.cs" />
+    <Compile Remove="Migrations\20201114221138_SecondMigration.cs" />
+    <Compile Remove="Migrations\20201114221138_SecondMigration.Designer.cs" />
+    <Compile Remove="Migrations\20201114222456_FirstMigration.cs" />
+    <Compile Remove="Migrations\20201114222456_FirstMigration.Designer.cs" />
+    <Compile Remove="Migrations\20201114222930_SecondMigration.cs" />
+    <Compile Remove="Migrations\20201114222930_SecondMigration.Designer.cs" />
+    <Compile Remove="Migrations\20201115001243_SecondMigration.cs" />
+    <Compile Remove="Migrations\20201115001243_SecondMigration.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -43,7 +69,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Migrations\" />
+    <Folder Include="Data\Migrations\" />
   </ItemGroup>
 
 </Project>

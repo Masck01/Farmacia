@@ -10,23 +10,23 @@ using FarmaciaAvellaneda.Models;
 
 namespace FarmaciaAvellaneda.Controllers
 {
-    public class PagosController : Controller
+    public class EmpleadosController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly FarmaciaAvellanedaContext _context;
 
-        public PagosController(ApplicationDbContext context)
+        public EmpleadosController(FarmaciaAvellanedaContext context)
         {
             _context = context;
         }
 
-        // GET: Pagos
+        // GET: Empleados
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Pago.Include(p => p.Venta);
+            var applicationDbContext = _context.Empleado.Include(e => e.User);
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: Pagos/Details/5
+        // GET: Empleados/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -34,42 +34,42 @@ namespace FarmaciaAvellaneda.Controllers
                 return NotFound();
             }
 
-            var pago = await _context.Pago
-                .Include(p => p.Venta)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (pago == null)
+            var empleado = await _context.Empleado
+                .Include(e => e.User)
+                .FirstOrDefaultAsync(m => m.IdEmpleado == id);
+            if (empleado == null)
             {
                 return NotFound();
             }
 
-            return View(pago);
+            return View(empleado);
         }
 
-        // GET: Pagos/Create
+        // GET: Empleados/Create
         public IActionResult Create()
         {
-            ViewData["VentaId"] = new SelectList(_context.Set<Venta>(), "IdVenta", "IdVenta");
+            ViewData["UserId"] = new SelectList(_context.Set<AspNetUsers>(), "Id", "Id");
             return View();
         }
 
-        // POST: Pagos/Create
+        // POST: Empleados/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Monto,Vuelto,VentaId")] Pago pago)
+        public async Task<IActionResult> Create([Bind("IdEmpleado,Apellido,Nombre,Cuit,Email,Celular,Telefono,Domicilio,Estado,UserId")] Empleado empleado)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(pago);
+                _context.Add(empleado);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["VentaId"] = new SelectList(_context.Set<Venta>(), "IdVenta", "IdVenta", pago.VentaId);
-            return View(pago);
+            ViewData["UserId"] = new SelectList(_context.Set<AspNetUsers>(), "Id", "Id", empleado.UserId);
+            return View(empleado);
         }
 
-        // GET: Pagos/Edit/5
+        // GET: Empleados/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -77,23 +77,23 @@ namespace FarmaciaAvellaneda.Controllers
                 return NotFound();
             }
 
-            var pago = await _context.Pago.FindAsync(id);
-            if (pago == null)
+            var empleado = await _context.Empleado.FindAsync(id);
+            if (empleado == null)
             {
                 return NotFound();
             }
-            ViewData["VentaId"] = new SelectList(_context.Set<Venta>(), "IdVenta", "IdVenta", pago.VentaId);
-            return View(pago);
+            ViewData["UserId"] = new SelectList(_context.Set<AspNetUsers>(), "Id", "Id", empleado.UserId);
+            return View(empleado);
         }
 
-        // POST: Pagos/Edit/5
+        // POST: Empleados/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Monto,Vuelto,VentaId")] Pago pago)
+        public async Task<IActionResult> Edit(int id, [Bind("IdEmpleado,Apellido,Nombre,Cuit,Email,Celular,Telefono,Domicilio,Estado,UserId")] Empleado empleado)
         {
-            if (id != pago.Id)
+            if (id != empleado.IdEmpleado)
             {
                 return NotFound();
             }
@@ -102,12 +102,12 @@ namespace FarmaciaAvellaneda.Controllers
             {
                 try
                 {
-                    _context.Update(pago);
+                    _context.Update(empleado);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PagoExists(pago.Id))
+                    if (!EmpleadoExists(empleado.IdEmpleado))
                     {
                         return NotFound();
                     }
@@ -118,11 +118,11 @@ namespace FarmaciaAvellaneda.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["VentaId"] = new SelectList(_context.Set<Venta>(), "IdVenta", "IdVenta", pago.VentaId);
-            return View(pago);
+            ViewData["UserId"] = new SelectList(_context.Set<AspNetUsers>(), "Id", "Id", empleado.UserId);
+            return View(empleado);
         }
 
-        // GET: Pagos/Delete/5
+        // GET: Empleados/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -130,31 +130,31 @@ namespace FarmaciaAvellaneda.Controllers
                 return NotFound();
             }
 
-            var pago = await _context.Pago
-                .Include(p => p.Venta)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (pago == null)
+            var empleado = await _context.Empleado
+                .Include(e => e.User)
+                .FirstOrDefaultAsync(m => m.IdEmpleado == id);
+            if (empleado == null)
             {
                 return NotFound();
             }
 
-            return View(pago);
+            return View(empleado);
         }
 
-        // POST: Pagos/Delete/5
+        // POST: Empleados/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var pago = await _context.Pago.FindAsync(id);
-            _context.Pago.Remove(pago);
+            var empleado = await _context.Empleado.FindAsync(id);
+            _context.Empleado.Remove(empleado);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool PagoExists(int id)
+        private bool EmpleadoExists(int id)
         {
-            return _context.Pago.Any(e => e.Id == id);
+            return _context.Empleado.Any(e => e.IdEmpleado == id);
         }
     }
 }
