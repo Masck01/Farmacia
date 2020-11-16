@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace FarmaciaAvellaneda.Migrations
+namespace FarmaciaAvellaneda.Migrations.FarmaciaAvellaneda
 {
-    public partial class FirstMigration : Migration
+    public partial class FarmaciaMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -50,47 +50,51 @@ namespace FarmaciaAvellaneda.Migrations
                 name: "Caja",
                 columns: table => new
                 {
-                    idCaja = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     nombre = table.Column<string>(unicode: false, maxLength: 30, nullable: true),
                     estado = table.Column<byte>(nullable: true),
                     saldo = table.Column<double>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__Caja__8BC79B34F17EDF9F", x => x.idCaja);
+                    table.PrimaryKey("PK_Caja", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Categoria",
                 columns: table => new
                 {
-                    idCategoria = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     nombre = table.Column<string>(unicode: false, maxLength: 60, nullable: true),
                     estado = table.Column<byte>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__Categori__8A3D240C82E6A00D", x => x.idCategoria);
+                    table.PrimaryKey("PK_Categoria", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Compra",
                 columns: table => new
                 {
-                    idCompra = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     fecha = table.Column<DateTime>(type: "datetime", nullable: true),
                     total = table.Column<double>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__Compra__48B99DB73C722341", x => x.idCompra);
+                    table.PrimaryKey("PK_Compra", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Concepto",
                 columns: table => new
                 {
-                    idConcepto = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     descripcion = table.Column<string>(unicode: false, maxLength: 1, nullable: true),
                     tipo = table.Column<byte>(nullable: true),
                     montoFijo = table.Column<double>(nullable: true),
@@ -98,20 +102,21 @@ namespace FarmaciaAvellaneda.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__Concepto__25A881FDD15B03CA", x => x.idConcepto);
+                    table.PrimaryKey("PK_Concepto", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Marca",
                 columns: table => new
                 {
-                    idMarca = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     codigo = table.Column<int>(nullable: true),
                     nombre = table.Column<string>(unicode: false, maxLength: 45, nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__Marca__703318124DE92BF2", x => x.idMarca);
+                    table.PrimaryKey("PK_Marca", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -224,7 +229,8 @@ namespace FarmaciaAvellaneda.Migrations
                 name: "Empleado",
                 columns: table => new
                 {
-                    idEmpleado = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     apellido = table.Column<string>(unicode: false, maxLength: 30, nullable: true),
                     nombre = table.Column<string>(unicode: false, maxLength: 30, nullable: true),
                     cuit = table.Column<int>(nullable: true),
@@ -237,9 +243,9 @@ namespace FarmaciaAvellaneda.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__Empleado__5295297C1AA21034", x => x.idEmpleado);
+                    table.PrimaryKey("PK_Empleado", x => x.Id);
                     table.ForeignKey(
-                        name: "FK__Empleado__userId__056ECC6A",
+                        name: "FK__Empleado__userId__4218B34E",
                         column: x => x.userId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -250,18 +256,19 @@ namespace FarmaciaAvellaneda.Migrations
                 name: "SubCategoria",
                 columns: table => new
                 {
-                    idSubcategoria = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     nombre = table.Column<string>(unicode: false, maxLength: 60, nullable: true),
                     categoriaId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__SubCateg__8EA501869E5A1067", x => x.idSubcategoria);
+                    table.PrimaryKey("PK_SubCategoria", x => x.Id);
                     table.ForeignKey(
-                        name: "FK__SubCatego__categ__1E3A7A34",
+                        name: "FK__SubCatego__categ__5AE46118",
                         column: x => x.categoriaId,
                         principalTable: "Categoria",
-                        principalColumn: "idCategoria",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -269,7 +276,8 @@ namespace FarmaciaAvellaneda.Migrations
                 name: "Proveedor",
                 columns: table => new
                 {
-                    idProveedor = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     razonSocial = table.Column<string>(unicode: false, maxLength: 60, nullable: true),
                     cuit = table.Column<int>(nullable: true),
                     telefono = table.Column<string>(unicode: false, maxLength: 1, nullable: true),
@@ -277,12 +285,12 @@ namespace FarmaciaAvellaneda.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__Proveedo__A3FA8E6BB53D4BFD", x => x.idProveedor);
+                    table.PrimaryKey("PK_Proveedor", x => x.Id);
                     table.ForeignKey(
-                        name: "FK__Proveedor__compr__22FF2F51",
+                        name: "FK__Proveedor__compr__5FA91635",
                         column: x => x.compraId,
                         principalTable: "Compra",
-                        principalColumn: "idCompra",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -290,7 +298,8 @@ namespace FarmaciaAvellaneda.Migrations
                 name: "GrupoFamiliar",
                 columns: table => new
                 {
-                    idGrupofamiliar = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     dni = table.Column<int>(nullable: true),
                     apellido = table.Column<string>(unicode: false, maxLength: 30, nullable: true),
                     nombre = table.Column<string>(unicode: false, maxLength: 30, nullable: true),
@@ -300,12 +309,12 @@ namespace FarmaciaAvellaneda.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__GrupoFam__3D65669A3B5BD5A0", x => x.idGrupofamiliar);
+                    table.PrimaryKey("PK_GrupoFamiliar", x => x.Id);
                     table.ForeignKey(
-                        name: "FK__GrupoFami__emple__084B3915",
+                        name: "FK__GrupoFami__emple__44F51FF9",
                         column: x => x.empleadoId,
                         principalTable: "Empleado",
-                        principalColumn: "idEmpleado",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -313,7 +322,8 @@ namespace FarmaciaAvellaneda.Migrations
                 name: "Liquidacion",
                 columns: table => new
                 {
-                    idLiquidacion = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     fechaDesde = table.Column<DateTime>(type: "date", nullable: true),
                     fechaHasta = table.Column<DateTime>(type: "date", nullable: true),
                     salarioNeto = table.Column<double>(nullable: true),
@@ -325,12 +335,12 @@ namespace FarmaciaAvellaneda.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__Liquidac__AD38F40F69F34AD9", x => x.idLiquidacion);
+                    table.PrimaryKey("PK_Liquidacion", x => x.Id);
                     table.ForeignKey(
-                        name: "FK__Liquidaci__emple__0B27A5C0",
+                        name: "FK__Liquidaci__emple__47D18CA4",
                         column: x => x.empleadoId,
                         principalTable: "Empleado",
-                        principalColumn: "idEmpleado",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -338,7 +348,8 @@ namespace FarmaciaAvellaneda.Migrations
                 name: "Venta",
                 columns: table => new
                 {
-                    idVenta = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     fechaVenta = table.Column<DateTime>(type: "datetime", nullable: true),
                     TOTAL = table.Column<double>(nullable: true),
                     ESTADO = table.Column<byte>(nullable: true),
@@ -346,12 +357,12 @@ namespace FarmaciaAvellaneda.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__Venta__077D56147832A66E", x => x.idVenta);
+                    table.PrimaryKey("PK_Venta", x => x.Id);
                     table.ForeignKey(
-                        name: "FK__Venta__empleadoI__13BCEBC1",
+                        name: "FK__Venta__empleadoI__5066D2A5",
                         column: x => x.empleadoId,
                         principalTable: "Empleado",
-                        principalColumn: "idEmpleado",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -359,7 +370,8 @@ namespace FarmaciaAvellaneda.Migrations
                 name: "Producto",
                 columns: table => new
                 {
-                    idProducto = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     nombre = table.Column<string>(unicode: false, maxLength: 1, nullable: true),
                     descripcion = table.Column<string>(unicode: false, maxLength: 1, nullable: true),
                     foto = table.Column<byte[]>(type: "image", nullable: true),
@@ -374,24 +386,24 @@ namespace FarmaciaAvellaneda.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__Producto__07F4A1322C9C8904", x => x.idProducto);
+                    table.PrimaryKey("PK_Producto", x => x.Id);
                     table.ForeignKey(
-                        name: "FK__Producto__catego__25DB9BFC",
+                        name: "FK__Producto__catego__628582E0",
                         column: x => x.categoriaId,
                         principalTable: "Categoria",
-                        principalColumn: "idCategoria",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK__Producto__marcaI__26CFC035",
+                        name: "FK__Producto__marcaI__6379A719",
                         column: x => x.marcaId,
                         principalTable: "Marca",
-                        principalColumn: "idMarca",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK__Producto__provee__27C3E46E",
+                        name: "FK__Producto__provee__646DCB52",
                         column: x => x.proveedorId,
                         principalTable: "Proveedor",
-                        principalColumn: "idProveedor",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -399,7 +411,8 @@ namespace FarmaciaAvellaneda.Migrations
                 name: "DetalleLiquidacion",
                 columns: table => new
                 {
-                    idDetalleLlquidacion = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     unidad = table.Column<int>(nullable: true),
                     haberes = table.Column<string>(unicode: false, maxLength: 1, nullable: true),
                     conceptoId = table.Column<int>(nullable: false),
@@ -407,18 +420,18 @@ namespace FarmaciaAvellaneda.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__DetalleL__ADA04E144A7130B5", x => x.idDetalleLlquidacion);
+                    table.PrimaryKey("PK_DetalleLiquidacion", x => x.Id);
                     table.ForeignKey(
-                        name: "FK__DetalleLi__conce__0FEC5ADD",
+                        name: "FK__DetalleLi__conce__4C9641C1",
                         column: x => x.conceptoId,
                         principalTable: "Concepto",
-                        principalColumn: "idConcepto",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK__DetalleLi__liqui__10E07F16",
+                        name: "FK__DetalleLi__liqui__4D8A65FA",
                         column: x => x.liquidacionId,
                         principalTable: "Liquidacion",
-                        principalColumn: "idLiquidacion",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -426,7 +439,8 @@ namespace FarmaciaAvellaneda.Migrations
                 name: "MovimientoCaja",
                 columns: table => new
                 {
-                    idMovimientoCaja = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     descripcion = table.Column<string>(unicode: false, maxLength: 255, nullable: true),
                     cajaId = table.Column<int>(nullable: false),
                     compraId = table.Column<int>(nullable: false),
@@ -434,24 +448,24 @@ namespace FarmaciaAvellaneda.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__Movimien__77EEFB2DDAABD479", x => x.idMovimientoCaja);
+                    table.PrimaryKey("PK_MovimientoCaja", x => x.Id);
                     table.ForeignKey(
-                        name: "FK__Movimient__cajaI__58671BC9",
+                        name: "FK__Movimient__cajaI__73B00EE2",
                         column: x => x.cajaId,
                         principalTable: "Caja",
-                        principalColumn: "idCaja",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK__Movimient__compr__595B4002",
+                        name: "FK__Movimient__compr__74A4331B",
                         column: x => x.compraId,
                         principalTable: "Compra",
-                        principalColumn: "idCompra",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK__Movimient__venta__5A4F643B",
+                        name: "FK__Movimient__venta__75985754",
                         column: x => x.ventaId,
                         principalTable: "Venta",
-                        principalColumn: "idVenta",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -459,19 +473,20 @@ namespace FarmaciaAvellaneda.Migrations
                 name: "Pago",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     monto = table.Column<double>(nullable: true),
                     vuelto = table.Column<double>(nullable: true),
                     ventaId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__Pago__BD2295AD89B57E9B", x => x.Id);
+                    table.PrimaryKey("PK_Pago", x => x.Id);
                     table.ForeignKey(
-                        name: "FK__Pago__ventaId__178D7CA5",
+                        name: "FK__Pago__ventaId__54376389",
                         column: x => x.ventaId,
                         principalTable: "Venta",
-                        principalColumn: "idVenta",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -479,27 +494,29 @@ namespace FarmaciaAvellaneda.Migrations
                 name: "Capacidad",
                 columns: table => new
                 {
-                    idCapacidad = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     cantidad = table.Column<int>(nullable: true),
                     estado = table.Column<byte>(nullable: true),
                     productoId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__Capacida__DC4ADD50E487B485", x => x.idCapacidad);
+                    table.PrimaryKey("PK_Capacidad", x => x.Id);
                     table.ForeignKey(
-                        name: "FK__Capacidad__produ__2E70E1FD",
+                        name: "FK__Capacidad__produ__6B1AC8E1",
                         column: x => x.productoId,
                         principalTable: "Producto",
-                        principalColumn: "idProducto",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "LineaDeCompra",
+                name: "LineaCompra",
                 columns: table => new
                 {
-                    idLineadecompra = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     subtotal = table.Column<double>(nullable: true),
                     cantidad = table.Column<int>(nullable: true),
                     compraId = table.Column<int>(nullable: false),
@@ -507,26 +524,27 @@ namespace FarmaciaAvellaneda.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__LineaDeC__19C9D5BEA84680FF", x => x.idLineadecompra);
+                    table.PrimaryKey("PK_LineaCompra", x => x.Id);
                     table.ForeignKey(
-                        name: "FK__LineaDeCo__compr__314D4EA8",
+                        name: "FK__LineaComp__compr__6DF7358C",
                         column: x => x.compraId,
                         principalTable: "Compra",
-                        principalColumn: "idCompra",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK__LineaDeCo__produ__324172E1",
+                        name: "FK__LineaComp__produ__6EEB59C5",
                         column: x => x.productoId,
                         principalTable: "Producto",
-                        principalColumn: "idProducto",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "LineaDeVenta",
+                name: "LineaVenta",
                 columns: table => new
                 {
-                    idLineadeventa = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     subtotal = table.Column<double>(nullable: true),
                     cantidad = table.Column<int>(nullable: true),
                     ventaId = table.Column<int>(nullable: false),
@@ -534,18 +552,18 @@ namespace FarmaciaAvellaneda.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__LineaDeV__547E370148B313E6", x => x.idLineadeventa);
+                    table.PrimaryKey("PK_LineaVenta", x => x.Id);
                     table.ForeignKey(
-                        name: "FK__LineaDeVe__produ__2B947552",
+                        name: "FK__LineaVent__produ__683E5C36",
                         column: x => x.productoId,
                         principalTable: "Producto",
-                        principalColumn: "idProducto",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK__LineaDeVe__venta__2AA05119",
+                        name: "FK__LineaVent__venta__674A37FD",
                         column: x => x.ventaId,
                         principalTable: "Venta",
-                        principalColumn: "idVenta",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -604,7 +622,7 @@ namespace FarmaciaAvellaneda.Migrations
                 column: "liquidacionId");
 
             migrationBuilder.CreateIndex(
-                name: "UQ__Empleado__CB9A1CFEFEE2F234",
+                name: "UQ__Empleado__CB9A1CFE0C54C1C1",
                 table: "Empleado",
                 column: "userId",
                 unique: true);
@@ -615,23 +633,23 @@ namespace FarmaciaAvellaneda.Migrations
                 column: "empleadoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_LineaDeCompra_compraId",
-                table: "LineaDeCompra",
+                name: "IX_LineaCompra_compraId",
+                table: "LineaCompra",
                 column: "compraId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_LineaDeCompra_productoId",
-                table: "LineaDeCompra",
+                name: "IX_LineaCompra_productoId",
+                table: "LineaCompra",
                 column: "productoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_LineaDeVenta_productoId",
-                table: "LineaDeVenta",
+                name: "IX_LineaVenta_productoId",
+                table: "LineaVenta",
                 column: "productoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_LineaDeVenta_ventaId",
-                table: "LineaDeVenta",
+                name: "IX_LineaVenta_ventaId",
+                table: "LineaVenta",
                 column: "ventaId");
 
             migrationBuilder.CreateIndex(
@@ -655,7 +673,7 @@ namespace FarmaciaAvellaneda.Migrations
                 column: "ventaId");
 
             migrationBuilder.CreateIndex(
-                name: "UQ__Pago__40B8EB5565F786B6",
+                name: "UQ__Pago__40B8EB55B2137B6A",
                 table: "Pago",
                 column: "ventaId",
                 unique: true);
@@ -718,10 +736,10 @@ namespace FarmaciaAvellaneda.Migrations
                 name: "GrupoFamiliar");
 
             migrationBuilder.DropTable(
-                name: "LineaDeCompra");
+                name: "LineaCompra");
 
             migrationBuilder.DropTable(
-                name: "LineaDeVenta");
+                name: "LineaVenta");
 
             migrationBuilder.DropTable(
                 name: "MovimientoCaja");

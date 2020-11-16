@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace FarmaciaAvellaneda.Models
 {
@@ -9,11 +8,11 @@ namespace FarmaciaAvellaneda.Models
         public Producto()
         {
             Capacidad = new HashSet<Capacidad>();
-            LineaDeCompra = new HashSet<LineaDeCompra>();
-            LineaDeVenta = new HashSet<LineaDeVenta>();
+            LineaCompra = new HashSet<LineaCompra>();
+            LineaVenta = new HashSet<LineaVenta>();
         }
-        [Key]
-        public int IdProducto { get; set; }
+
+        public int Id { get; set; }
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
         public byte[] Foto { get; set; }
@@ -30,7 +29,7 @@ namespace FarmaciaAvellaneda.Models
         public virtual Marca Marca { get; set; }
         public virtual Proveedor Proveedor { get; set; }
         public virtual ICollection<Capacidad> Capacidad { get; set; }
-        public virtual ICollection<LineaDeCompra> LineaDeCompra { get; set; }
-        public virtual ICollection<LineaDeVenta> LineaDeVenta { get; set; }
+        public virtual ICollection<LineaCompra> LineaCompra { get; set; }
+        public virtual ICollection<LineaVenta> LineaVenta { get; set; }
     }
 }

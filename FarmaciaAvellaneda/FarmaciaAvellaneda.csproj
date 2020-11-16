@@ -50,6 +50,20 @@
     <Compile Remove="Migrations\20201114222930_SecondMigration.Designer.cs" />
     <Compile Remove="Migrations\20201115001243_SecondMigration.cs" />
     <Compile Remove="Migrations\20201115001243_SecondMigration.Designer.cs" />
+    <Compile Remove="Migrations\20201116030204_FirstMigration.cs" />
+    <Compile Remove="Migrations\20201116030204_FirstMigration.Designer.cs" />
+    <Compile Remove="Migrations\20201116033613_FarmaciaMigration.cs" />
+    <Compile Remove="Migrations\20201116033613_FarmaciaMigration.Designer.cs" />
+    <Compile Remove="Migrations\20201116033723_FirstMigration.cs" />
+    <Compile Remove="Migrations\20201116033723_FirstMigration.Designer.cs" />
+    <Compile Remove="Migrations\20201116043600_FirstMigration.cs" />
+    <Compile Remove="Migrations\20201116043600_FirstMigration.Designer.cs" />
+    <Compile Remove="Migrations\20201116044653_FarmaciaMigration.cs" />
+    <Compile Remove="Migrations\20201116044653_FarmaciaMigration.Designer.cs" />
+    <Compile Remove="Migrations\FarmaciaAvellaneda\20201116032834_SecondMigration.cs" />
+    <Compile Remove="Migrations\FarmaciaAvellaneda\20201116032834_SecondMigration.Designer.cs" />
+    <Compile Remove="Migrations\FarmaciaAvellaneda\20201116033737_FarmaciaMigration.cs" />
+    <Compile Remove="Migrations\FarmaciaAvellaneda\20201116033737_FarmaciaMigration.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -71,6 +85,7 @@
 
   <ItemGroup>
     <Folder Include="Data\Migrations\" />
+    <Folder Include="Migrations\FarmaciaAvellaneda\" />
   </ItemGroup>
 
 </Project>
