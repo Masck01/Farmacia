@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FarmaciaAvellaneda.Models;
 using Microsoft.AspNetCore.Identity;
+using FarmaciaAvellaneda.Data;
 
 namespace FarmaciaAvellaneda.Controllers
 {

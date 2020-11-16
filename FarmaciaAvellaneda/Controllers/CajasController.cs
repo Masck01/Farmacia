@@ -10,23 +10,22 @@ using FarmaciaAvellaneda.Models;
 
 namespace FarmaciaAvellaneda.Controllers
 {
-    public class EmpleadosController : Controller
+    public class CajasController : Controller
     {
         private readonly FarmaciaAvellanedaContext _context;
 
-        public EmpleadosController(FarmaciaAvellanedaContext context)
+        public CajasController(FarmaciaAvellanedaContext context)
         {
             _context = context;
         }
 
-        // GET: Empleados
+        // GET: Cajas
         public async Task<IActionResult> Index()
         {
-            var farmaciaAvellanedaContext = _context.Empleado.Include(e => e.User);
-            return View(await farmaciaAvellanedaContext.ToListAsync());
+            return View(await _context.Caja.ToListAsync());
         }
 
-        // GET: Empleados/Details/5
+        // GET: Cajas/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -34,42 +33,39 @@ namespace FarmaciaAvellaneda.Controllers
                 return NotFound();
             }
 
-            var empleado = await _context.Empleado
-                .Include(e => e.User)
+            var caja = await _context.Caja
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (empleado == null)
+            if (caja == null)
             {
                 return NotFound();
             }
 
-            return View(empleado);
+            return View(caja);
         }
 
-        // GET: Empleados/Create
+        // GET: Cajas/Create
         public IActionResult Create()
         {
-            ViewData["UserId"] = new SelectList(_context.AspNetUsers, "Id", "Id");
             return View();
         }
 
-        // POST: Empleados/Create
+        // POST: Cajas/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Apellido,Nombre,Cuit,Email,Celular,Telefono,Domicilio,Estado,UserId")] Empleado empleado)
+        public async Task<IActionResult> Create([Bind("Id,Nombre,Estado,Saldo")] Caja caja)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(empleado);
+                _context.Add(caja);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.AspNetUsers, "Id", "Id", empleado.UserId);
-            return View(empleado);
+            return View(caja);
         }
 
-        // GET: Empleados/Edit/5
+        // GET: Cajas/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -77,23 +73,22 @@ namespace FarmaciaAvellaneda.Controllers
                 return NotFound();
             }
 
-            var empleado = await _context.Empleado.FindAsync(id);
-            if (empleado == null)
+            var caja = await _context.Caja.FindAsync(id);
+            if (caja == null)
             {
                 return NotFound();
             }
-            ViewData["UserId"] = new SelectList(_context.AspNetUsers, "Id", "Id", empleado.UserId);
-            return View(empleado);
+            return View(caja);
         }
 
-        // POST: Empleados/Edit/5
+        // POST: Cajas/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Apellido,Nombre,Cuit,Email,Celular,Telefono,Domicilio,Estado,UserId")] Empleado empleado)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Estado,Saldo")] Caja caja)
         {
-            if (id != empleado.Id)
+            if (id != caja.Id)
             {
                 return NotFound();
             }
@@ -102,12 +97,12 @@ namespace FarmaciaAvellaneda.Controllers
             {
                 try
                 {
-                    _context.Update(empleado);
+                    _context.Update(caja);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EmpleadoExists(empleado.Id))
+                    if (!CajaExists(caja.Id))
                     {
                         return NotFound();
                     }
@@ -118,11 +113,10 @@ namespace FarmaciaAvellaneda.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.AspNetUsers, "Id", "Id", empleado.UserId);
-            return View(empleado);
+            return View(caja);
         }
 
-        // GET: Empleados/Delete/5
+        // GET: Cajas/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -130,31 +124,30 @@ namespace FarmaciaAvellaneda.Controllers
                 return NotFound();
             }
 
-            var empleado = await _context.Empleado
-                .Include(e => e.User)
+            var caja = await _context.Caja
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (empleado == null)
+            if (caja == null)
             {
                 return NotFound();
             }
 
-            return View(empleado);
+            return View(caja);
         }
 
-        // POST: Empleados/Delete/5
+        // POST: Cajas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var empleado = await _context.Empleado.FindAsync(id);
-            _context.Empleado.Remove(empleado);
+            var caja = await _context.Caja.FindAsync(id);
+            _context.Caja.Remove(caja);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool EmpleadoExists(int id)
+        private bool CajaExists(int id)
         {
-            return _context.Empleado.Any(e => e.Id == id);
+            return _context.Caja.Any(e => e.Id == id);
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace FarmaciaAvellaneda.Models
 {
@@ -10,8 +9,8 @@ namespace FarmaciaAvellaneda.Models
         {
             DetalleLiquidacion = new HashSet<DetalleLiquidacion>();
         }
-        [Key]
-        public int IdLiquidacion { get; set; }
+
+        public int Id { get; set; }
         public DateTime? FechaDesde { get; set; }
         public DateTime? FechaHasta { get; set; }
         public double? SalarioNeto { get; set; }

@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace FarmaciaAvellaneda.Models
 {
     public partial class GrupoFamiliar
     {
-        [Key]
-        public int IdGrupofamiliar { get; set; }
+        public int Id { get; set; }
         public int? Dni { get; set; }
         public string Apellido { get; set; }
         public string Nombre { get; set; }
