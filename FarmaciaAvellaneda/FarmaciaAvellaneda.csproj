@@ -64,6 +64,10 @@
     <Compile Remove="Migrations\FarmaciaAvellaneda\20201116032834_SecondMigration.Designer.cs" />
     <Compile Remove="Migrations\FarmaciaAvellaneda\20201116033737_FarmaciaMigration.cs" />
     <Compile Remove="Migrations\FarmaciaAvellaneda\20201116033737_FarmaciaMigration.Designer.cs" />
+    <Compile Remove="Migrations\FarmaciaAvellaneda\20201119043542_SP_Migrations.cs" />
+    <Compile Remove="Migrations\FarmaciaAvellaneda\20201119043542_SP_Migrations.Designer.cs" />
+    <Compile Remove="Migrations\FarmaciaAvellaneda\20201119044304_SP_Migrations.cs" />
+    <Compile Remove="Migrations\FarmaciaAvellaneda\20201119044304_SP_Migrations.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -81,11 +85,11 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.2.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Data\Migrations\" />
-    <Folder Include="Migrations\FarmaciaAvellaneda\" />
   </ItemGroup>
 
 </Project>

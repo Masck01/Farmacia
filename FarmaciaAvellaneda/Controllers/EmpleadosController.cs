@@ -7,16 +7,23 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FarmaciaAvellaneda.Data;
 using FarmaciaAvellaneda.Models;
+using FarmaciaAvellaneda.ViewModels;
+using FarmaciaAvellaneda.Services;
+using Microsoft.Data.SqlClient;
+using Microsoft.AspNetCore.Identity;
 
 namespace FarmaciaAvellaneda.Controllers
 {
     public class EmpleadosController : Controller
     {
         private readonly FarmaciaAvellanedaContext _context;
+        private readonly UsersServices _users;
 
-        public EmpleadosController(FarmaciaAvellanedaContext context)
+        public EmpleadosController(FarmaciaAvellanedaContext context,
+            UsersServices users)
         {
             _context = context;
+            _users = users;
         }
 
         // GET: Empleados
@@ -48,7 +55,7 @@ namespace FarmaciaAvellaneda.Controllers
         // GET: Empleados/Create
         public IActionResult Create()
         {
-            ViewData["UserId"] = new SelectList(_context.AspNetUsers, "Id", "Id");
+            //ViewData["UserId"] = new SelectList(_context.AspNetUsers, "Id", "Id");
             return View();
         }
 
@@ -57,15 +64,30 @@ namespace FarmaciaAvellaneda.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Apellido,Nombre,Cuit,Email,Celular,Telefono,Domicilio,Estado,UserId")] Empleado empleado)
+        public async Task<IActionResult> Create([Bind] EmpleadoViewModel empleado)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(empleado);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                try
+                {
+
+                    IdentityResult result = await _users.CreateUserAsync(empleado.Email, empleado.Password);
+                    if (result.Succeeded)
+                    {
+                        string userId = await _users.UserIdAsync(empleado.Email);
+                        await _context.Database.ExecuteSqlInterpolatedAsync($"Exec CreateEmployee @Name={empleado.Nombre}, @LastName={empleado.Apellido}, @UserId={userId}");
+                        await _context.SaveChangesAsync();
+                        return RedirectToAction(nameof(Index));
+                    }
+                    else
+                        _users.Errors(result, ModelState);
+                }
+                catch
+                {
+                    throw;
+                }
             }
-            ViewData["UserId"] = new SelectList(_context.AspNetUsers, "Id", "Id", empleado.UserId);
+            //ViewData["UserId"] = new SelectList(_context.AspNetUsers, "Id", "Id", empleado.UserId);
             return View(empleado);
         }
 
