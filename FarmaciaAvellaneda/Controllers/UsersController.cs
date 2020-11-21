@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using FarmaciaAvellaneda.Models;
 using Microsoft.AspNetCore.Identity;
 using FarmaciaAvellaneda.Data;
+using FarmaciaAvellaneda.Services;
+using FarmaciaAvellaneda.ViewModels;
 
 namespace FarmaciaAvellaneda.Controllers
 {
@@ -15,16 +17,16 @@ namespace FarmaciaAvellaneda.Controllers
     {
         private readonly FarmaciaAvellanedaContext _context;
         private readonly UserManager<IdentityUser> _userManager;
-        private readonly IPasswordHasher<IdentityUser> _hasher;
+        private readonly UsersServices _users;
 
         public UsersController(
             FarmaciaAvellanedaContext context,
             UserManager<IdentityUser> usrMngr,
-            IPasswordHasher<IdentityUser> passwordHasher)
+            UsersServices usersServices)
         {
             _context = context;
             _userManager = usrMngr;
-            _hasher = passwordHasher;
+            _users = usersServices;
         }
 
         // GET: Users
@@ -98,7 +100,8 @@ namespace FarmaciaAvellaneda.Controllers
             {
                 return NotFound();
             }
-            return View(aspNetUsers);
+            UserViewModel user = _users.ToUserViewModel(aspNetUsers);
+            return View(user);
         }
 
         // POST: Users/Edit/5
@@ -106,28 +109,28 @@ namespace FarmaciaAvellaneda.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("UserName,EmailConfirmed,PasswordHash")] IdentityUser aspNetUsers)
+        public async Task<IActionResult> Edit(string id, [Bind]UserViewModel ModelUser)
         {
             IdentityUser user = await _userManager.FindByIdAsync(id);
             if (user != null)
             {
                 try
                 {
-                    if (!string.IsNullOrEmpty(aspNetUsers.UserName))
-                        user.Email = aspNetUsers.UserName;
+                    if (!string.IsNullOrEmpty(ModelUser.Email))
+                        user.Email = ModelUser.Email;
                     else
                         ModelState.AddModelError("", "Email vacio");
-                    if (!string.IsNullOrEmpty(aspNetUsers.PasswordHash))
+                    if (!string.IsNullOrEmpty(ModelUser.Password))
                     {
-                        user.PasswordHash = _userManager.PasswordHasher.HashPassword(user, aspNetUsers.PasswordHash);
+                        user.PasswordHash = _userManager.PasswordHasher.HashPassword(user, ModelUser.Password);
                     }
                     else
                         ModelState.AddModelError("", "Contraseña vacia");
-                    if (!string.IsNullOrEmpty(aspNetUsers.UserName) && !string.IsNullOrEmpty(aspNetUsers.PasswordHash))
+                    if (!string.IsNullOrEmpty(ModelUser.Email) && !string.IsNullOrEmpty(ModelUser.Password))
                     {
                         //await _userManager.RemovePasswordAsync(user);
-                        //await _userManager.AddPasswordAsync(user, aspNetUsers.PasswordHash);
-                        user.EmailConfirmed = aspNetUsers.EmailConfirmed;
+                        //await _userManager.AddPasswordAsync(user, ModelUser.PasswordHash);
+                        user.EmailConfirmed = ModelUser.EmailConfirmed;
                         IdentityResult result = await _userManager.UpdateAsync(user);
                         if (result.Succeeded)
                             return RedirectToAction(nameof(Index));
@@ -137,14 +140,14 @@ namespace FarmaciaAvellaneda.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!AspNetUsersExists(aspNetUsers.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
+                    //if (!AspNetUsersExists(ModelUser.Id))
+                    //{
+                    //    return NotFound();
+                    //}
+                    //else
+                    //{
+                    //}
                         throw;
-                    }
                 }
                 return RedirectToAction(nameof(Index));
             }
