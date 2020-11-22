@@ -269,7 +269,7 @@ namespace FarmaciaAvellaneda.Migrations.FarmaciaAvellaneda
                     b.ToTable("Capacidad");
                 });
 
-            modelBuilder.Entity("FarmaciaAvellaneda.Models.Categoria", b =>
+            modelBuilder.Entity("FarmaciaAvellaneda.Models.CategoriaProducto", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -288,7 +288,7 @@ namespace FarmaciaAvellaneda.Migrations.FarmaciaAvellaneda
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categoria");
+                    b.ToTable("CategoriaProducto");
                 });
 
             modelBuilder.Entity("FarmaciaAvellaneda.Models.Compra", b =>
@@ -320,8 +320,8 @@ namespace FarmaciaAvellaneda.Migrations.FarmaciaAvellaneda
 
                     b.Property<string>("Descripcion")
                         .HasColumnName("descripcion")
-                        .HasColumnType("varchar(1)")
-                        .HasMaxLength(1)
+                        .HasColumnType("varchar(60)")
+                        .HasMaxLength(60)
                         .IsUnicode(false);
 
                     b.Property<double?>("MontoFijo")
@@ -354,8 +354,8 @@ namespace FarmaciaAvellaneda.Migrations.FarmaciaAvellaneda
 
                     b.Property<string>("Haberes")
                         .HasColumnName("haberes")
-                        .HasColumnType("varchar(1)")
-                        .HasMaxLength(1)
+                        .HasColumnType("varchar(60)")
+                        .HasMaxLength(60)
                         .IsUnicode(false);
 
                     b.Property<int>("LiquidacionId")
@@ -390,13 +390,15 @@ namespace FarmaciaAvellaneda.Migrations.FarmaciaAvellaneda
 
                     b.Property<string>("Celular")
                         .HasColumnName("celular")
-                        .HasColumnType("varchar(1)")
-                        .HasMaxLength(1)
+                        .HasColumnType("varchar(60)")
+                        .HasMaxLength(60)
                         .IsUnicode(false);
 
-                    b.Property<int?>("Cuit")
+                    b.Property<string>("Cuit")
                         .HasColumnName("cuit")
-                        .HasColumnType("int");
+                        .HasColumnType("varchar(30)")
+                        .HasMaxLength(30)
+                        .IsUnicode(false);
 
                     b.Property<string>("Domicilio")
                         .HasColumnName("domicilio")
@@ -422,8 +424,8 @@ namespace FarmaciaAvellaneda.Migrations.FarmaciaAvellaneda
 
                     b.Property<string>("Telefono")
                         .HasColumnName("telefono")
-                        .HasColumnType("varchar(1)")
-                        .HasMaxLength(1)
+                        .HasColumnType("varchar(60)")
+                        .HasMaxLength(60)
                         .IsUnicode(false);
 
                     b.Property<string>("UserId")
@@ -435,7 +437,7 @@ namespace FarmaciaAvellaneda.Migrations.FarmaciaAvellaneda
 
                     b.HasIndex("UserId")
                         .IsUnique()
-                        .HasName("UQ__Empleado__CB9A1CFE0C54C1C1");
+                        .HasName("UQ__Empleado__CB9A1CFE35DEA35C");
 
                     b.ToTable("Empleado");
                 });
@@ -675,7 +677,7 @@ namespace FarmaciaAvellaneda.Migrations.FarmaciaAvellaneda
 
                     b.HasIndex("VentaId")
                         .IsUnique()
-                        .HasName("UQ__Pago__40B8EB55B2137B6A");
+                        .HasName("UQ__Pago__40B8EB55CE174DFA");
 
                     b.ToTable("Pago");
                 });
@@ -687,14 +689,14 @@ namespace FarmaciaAvellaneda.Migrations.FarmaciaAvellaneda
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CategoriaId")
-                        .HasColumnName("categoriaId")
+                    b.Property<int>("CategoriaProductoId")
+                        .HasColumnName("categoriaProductoId")
                         .HasColumnType("int");
 
                     b.Property<string>("Descripcion")
                         .HasColumnName("descripcion")
-                        .HasColumnType("varchar(1)")
-                        .HasMaxLength(1)
+                        .HasColumnType("varchar(60)")
+                        .HasMaxLength(60)
                         .IsUnicode(false);
 
                     b.Property<byte?>("Estado")
@@ -715,8 +717,8 @@ namespace FarmaciaAvellaneda.Migrations.FarmaciaAvellaneda
 
                     b.Property<string>("Nombre")
                         .HasColumnName("nombre")
-                        .HasColumnType("varchar(1)")
-                        .HasMaxLength(1)
+                        .HasColumnType("varchar(60)")
+                        .HasMaxLength(60)
                         .IsUnicode(false);
 
                     b.Property<double?>("PrecioCompra")
@@ -737,7 +739,7 @@ namespace FarmaciaAvellaneda.Migrations.FarmaciaAvellaneda
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoriaId");
+                    b.HasIndex("CategoriaProductoId");
 
                     b.HasIndex("MarcaId");
 
@@ -757,9 +759,11 @@ namespace FarmaciaAvellaneda.Migrations.FarmaciaAvellaneda
                         .HasColumnName("compraId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Cuit")
+                    b.Property<string>("Cuit")
                         .HasColumnName("cuit")
-                        .HasColumnType("int");
+                        .HasColumnType("varchar(30)")
+                        .HasMaxLength(30)
+                        .IsUnicode(false);
 
                     b.Property<string>("RazonSocial")
                         .HasColumnName("razonSocial")
@@ -769,8 +773,8 @@ namespace FarmaciaAvellaneda.Migrations.FarmaciaAvellaneda
 
                     b.Property<string>("Telefono")
                         .HasColumnName("telefono")
-                        .HasColumnType("varchar(1)")
-                        .HasMaxLength(1)
+                        .HasColumnType("varchar(60)")
+                        .HasMaxLength(60)
                         .IsUnicode(false);
 
                     b.HasKey("Id");
@@ -780,15 +784,15 @@ namespace FarmaciaAvellaneda.Migrations.FarmaciaAvellaneda
                     b.ToTable("Proveedor");
                 });
 
-            modelBuilder.Entity("FarmaciaAvellaneda.Models.SubCategoria", b =>
+            modelBuilder.Entity("FarmaciaAvellaneda.Models.SubCategoriaProducto", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CategoriaId")
-                        .HasColumnName("categoriaId")
+                    b.Property<int>("CategoriaProductoId")
+                        .HasColumnName("categoriaProductoId")
                         .HasColumnType("int");
 
                     b.Property<string>("Nombre")
@@ -799,9 +803,9 @@ namespace FarmaciaAvellaneda.Migrations.FarmaciaAvellaneda
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoriaId");
+                    b.HasIndex("CategoriaProductoId");
 
-                    b.ToTable("SubCategoria");
+                    b.ToTable("SubCategoriaProducto");
                 });
 
             modelBuilder.Entity("FarmaciaAvellaneda.Models.Venta", b =>
@@ -816,7 +820,7 @@ namespace FarmaciaAvellaneda.Migrations.FarmaciaAvellaneda
                         .HasColumnType("int");
 
                     b.Property<byte?>("Estado")
-                        .HasColumnName("ESTADO")
+                        .HasColumnName("estado")
                         .HasColumnType("tinyint");
 
                     b.Property<DateTime?>("FechaVenta")
@@ -824,7 +828,7 @@ namespace FarmaciaAvellaneda.Migrations.FarmaciaAvellaneda
                         .HasColumnType("datetime");
 
                     b.Property<double?>("Total")
-                        .HasColumnName("TOTAL")
+                        .HasColumnName("total")
                         .HasColumnType("float");
 
                     b.HasKey("Id");
@@ -890,7 +894,8 @@ namespace FarmaciaAvellaneda.Migrations.FarmaciaAvellaneda
                     b.HasOne("FarmaciaAvellaneda.Models.Producto", "Producto")
                         .WithMany("Capacidad")
                         .HasForeignKey("ProductoId")
-                        .HasConstraintName("FK__Capacidad__produ__6B1AC8E1")
+                        .HasConstraintName("FK_Capacidad_Producto")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
@@ -899,13 +904,15 @@ namespace FarmaciaAvellaneda.Migrations.FarmaciaAvellaneda
                     b.HasOne("FarmaciaAvellaneda.Models.Concepto", "Concepto")
                         .WithMany("DetalleLiquidacion")
                         .HasForeignKey("ConceptoId")
-                        .HasConstraintName("FK__DetalleLi__conce__4C9641C1")
+                        .HasConstraintName("FK_DetalleLiquidacion_Concepto")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("FarmaciaAvellaneda.Models.Liquidacion", "Liquidacion")
                         .WithMany("DetalleLiquidacion")
                         .HasForeignKey("LiquidacionId")
-                        .HasConstraintName("FK__DetalleLi__liqui__4D8A65FA")
+                        .HasConstraintName("FK_DetalleLiquidacion_Liquidacion")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
@@ -914,7 +921,8 @@ namespace FarmaciaAvellaneda.Migrations.FarmaciaAvellaneda
                     b.HasOne("FarmaciaAvellaneda.Models.AspNetUsers", "User")
                         .WithOne("Empleado")
                         .HasForeignKey("FarmaciaAvellaneda.Models.Empleado", "UserId")
-                        .HasConstraintName("FK__Empleado__userId__4218B34E")
+                        .HasConstraintName("FK_Empleado_UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
@@ -923,7 +931,8 @@ namespace FarmaciaAvellaneda.Migrations.FarmaciaAvellaneda
                     b.HasOne("FarmaciaAvellaneda.Models.Empleado", "Empleado")
                         .WithMany("GrupoFamiliar")
                         .HasForeignKey("EmpleadoId")
-                        .HasConstraintName("FK__GrupoFami__emple__44F51FF9")
+                        .HasConstraintName("FK_GrupoFamiliar_Empleado")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
@@ -932,13 +941,14 @@ namespace FarmaciaAvellaneda.Migrations.FarmaciaAvellaneda
                     b.HasOne("FarmaciaAvellaneda.Models.Compra", "Compra")
                         .WithMany("LineaCompra")
                         .HasForeignKey("CompraId")
-                        .HasConstraintName("FK__LineaComp__compr__6DF7358C")
+                        .HasConstraintName("FK_LineaCompra_Compra")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("FarmaciaAvellaneda.Models.Producto", "Producto")
                         .WithMany("LineaCompra")
                         .HasForeignKey("ProductoId")
-                        .HasConstraintName("FK__LineaComp__produ__6EEB59C5")
+                        .HasConstraintName("FK_LineaCompra_Producto")
                         .IsRequired();
                 });
 
@@ -947,13 +957,15 @@ namespace FarmaciaAvellaneda.Migrations.FarmaciaAvellaneda
                     b.HasOne("FarmaciaAvellaneda.Models.Producto", "Producto")
                         .WithMany("LineaVenta")
                         .HasForeignKey("ProductoId")
-                        .HasConstraintName("FK__LineaVent__produ__683E5C36")
+                        .HasConstraintName("FK_LineaVenta_Producto")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("FarmaciaAvellaneda.Models.Venta", "Venta")
                         .WithMany("LineaVenta")
                         .HasForeignKey("VentaId")
-                        .HasConstraintName("FK__LineaVent__venta__674A37FD")
+                        .HasConstraintName("FK_LineaVenta_Venta")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
@@ -962,7 +974,8 @@ namespace FarmaciaAvellaneda.Migrations.FarmaciaAvellaneda
                     b.HasOne("FarmaciaAvellaneda.Models.Empleado", "Empleado")
                         .WithMany("Liquidacion")
                         .HasForeignKey("EmpleadoId")
-                        .HasConstraintName("FK__Liquidaci__emple__47D18CA4")
+                        .HasConstraintName("FK_Liquidacion_Empleado")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
@@ -971,19 +984,22 @@ namespace FarmaciaAvellaneda.Migrations.FarmaciaAvellaneda
                     b.HasOne("FarmaciaAvellaneda.Models.Caja", "Caja")
                         .WithMany("MovimientoCaja")
                         .HasForeignKey("CajaId")
-                        .HasConstraintName("FK__Movimient__cajaI__73B00EE2")
+                        .HasConstraintName("FK_MovimientoCaja_Caja")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("FarmaciaAvellaneda.Models.Compra", "Compra")
                         .WithMany("MovimientoCaja")
                         .HasForeignKey("CompraId")
-                        .HasConstraintName("FK__Movimient__compr__74A4331B")
+                        .HasConstraintName("FK_MovimientoCaja_Compra")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("FarmaciaAvellaneda.Models.Venta", "Venta")
                         .WithMany("MovimientoCaja")
                         .HasForeignKey("VentaId")
-                        .HasConstraintName("FK__Movimient__venta__75985754")
+                        .HasConstraintName("FK_MovimientoCaja_Venta")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
@@ -992,28 +1008,32 @@ namespace FarmaciaAvellaneda.Migrations.FarmaciaAvellaneda
                     b.HasOne("FarmaciaAvellaneda.Models.Venta", "Venta")
                         .WithOne("Pago")
                         .HasForeignKey("FarmaciaAvellaneda.Models.Pago", "VentaId")
-                        .HasConstraintName("FK__Pago__ventaId__54376389")
+                        .HasConstraintName("FK_Pago_Venta")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
             modelBuilder.Entity("FarmaciaAvellaneda.Models.Producto", b =>
                 {
-                    b.HasOne("FarmaciaAvellaneda.Models.Categoria", "Categoria")
+                    b.HasOne("FarmaciaAvellaneda.Models.CategoriaProducto", "CategoriaProducto")
                         .WithMany("Producto")
-                        .HasForeignKey("CategoriaId")
-                        .HasConstraintName("FK__Producto__catego__628582E0")
+                        .HasForeignKey("CategoriaProductoId")
+                        .HasConstraintName("FK_Producto_Categoria")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("FarmaciaAvellaneda.Models.Marca", "Marca")
                         .WithMany("Producto")
                         .HasForeignKey("MarcaId")
-                        .HasConstraintName("FK__Producto__marcaI__6379A719")
+                        .HasConstraintName("FK_Producto_Marca")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("FarmaciaAvellaneda.Models.Proveedor", "Proveedor")
                         .WithMany("Producto")
                         .HasForeignKey("ProveedorId")
-                        .HasConstraintName("FK__Producto__provee__646DCB52")
+                        .HasConstraintName("FK_Producto_Proveedor")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
@@ -1022,16 +1042,18 @@ namespace FarmaciaAvellaneda.Migrations.FarmaciaAvellaneda
                     b.HasOne("FarmaciaAvellaneda.Models.Compra", "Compra")
                         .WithMany("Proveedor")
                         .HasForeignKey("CompraId")
-                        .HasConstraintName("FK__Proveedor__compr__5FA91635")
+                        .HasConstraintName("FK_Proveedor_Compra")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("FarmaciaAvellaneda.Models.SubCategoria", b =>
+            modelBuilder.Entity("FarmaciaAvellaneda.Models.SubCategoriaProducto", b =>
                 {
-                    b.HasOne("FarmaciaAvellaneda.Models.Categoria", "Categoria")
-                        .WithMany("SubCategoria")
-                        .HasForeignKey("CategoriaId")
-                        .HasConstraintName("FK__SubCatego__categ__5AE46118")
+                    b.HasOne("FarmaciaAvellaneda.Models.CategoriaProducto", "CategoriaProducto")
+                        .WithMany("SubCategoriaProducto")
+                        .HasForeignKey("CategoriaProductoId")
+                        .HasConstraintName("FK_SubCategoria_Categoria_Producto")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
@@ -1040,7 +1062,8 @@ namespace FarmaciaAvellaneda.Migrations.FarmaciaAvellaneda
                     b.HasOne("FarmaciaAvellaneda.Models.Empleado", "Empleado")
                         .WithMany("Venta")
                         .HasForeignKey("EmpleadoId")
-                        .HasConstraintName("FK__Venta__empleadoI__5066D2A5")
+                        .HasConstraintName("FK_Venta_Empleado")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

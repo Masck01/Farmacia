@@ -25,7 +25,7 @@ namespace FarmaciaAvellaneda.Data
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
         public virtual DbSet<Caja> Caja { get; set; }
         public virtual DbSet<Capacidad> Capacidad { get; set; }
-        public virtual DbSet<Categoria> Categoria { get; set; }
+        public virtual DbSet<CategoriaProducto> CategoriaProducto { get; set; }
         public virtual DbSet<Compra> Compra { get; set; }
         public virtual DbSet<Concepto> Concepto { get; set; }
         public virtual DbSet<DetalleLiquidacion> DetalleLiquidacion { get; set; }
@@ -39,14 +39,14 @@ namespace FarmaciaAvellaneda.Data
         public virtual DbSet<Pago> Pago { get; set; }
         public virtual DbSet<Producto> Producto { get; set; }
         public virtual DbSet<Proveedor> Proveedor { get; set; }
-        public virtual DbSet<SubCategoria> SubCategoria { get; set; }
+        public virtual DbSet<SubCategoriaProducto> SubCategoriaProducto { get; set; }
         public virtual DbSet<Venta> Venta { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("name=DefaultConnection");
+                optionsBuilder.UseSqlServer("Name=DefaultConnection");
             }
         }
 
@@ -173,11 +173,10 @@ namespace FarmaciaAvellaneda.Data
                 entity.HasOne(d => d.Producto)
                     .WithMany(p => p.Capacidad)
                     .HasForeignKey(d => d.ProductoId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Capacidad__produ__6B1AC8E1");
+                    .HasConstraintName("FK_Capacidad_Producto");
             });
 
-            modelBuilder.Entity<Categoria>(entity =>
+            modelBuilder.Entity<CategoriaProducto>(entity =>
             {
                 entity.Property(e => e.Estado).HasColumnName("estado");
 
@@ -200,7 +199,7 @@ namespace FarmaciaAvellaneda.Data
             {
                 entity.Property(e => e.Descripcion)
                     .HasColumnName("descripcion")
-                    .HasMaxLength(1)
+                    .HasMaxLength(60)
                     .IsUnicode(false);
 
                 entity.Property(e => e.MontoFijo).HasColumnName("montoFijo");
@@ -216,7 +215,7 @@ namespace FarmaciaAvellaneda.Data
 
                 entity.Property(e => e.Haberes)
                     .HasColumnName("haberes")
-                    .HasMaxLength(1)
+                    .HasMaxLength(60)
                     .IsUnicode(false);
 
                 entity.Property(e => e.LiquidacionId).HasColumnName("liquidacionId");
@@ -226,20 +225,18 @@ namespace FarmaciaAvellaneda.Data
                 entity.HasOne(d => d.Concepto)
                     .WithMany(p => p.DetalleLiquidacion)
                     .HasForeignKey(d => d.ConceptoId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__DetalleLi__conce__4C9641C1");
+                    .HasConstraintName("FK_DetalleLiquidacion_Concepto");
 
                 entity.HasOne(d => d.Liquidacion)
                     .WithMany(p => p.DetalleLiquidacion)
                     .HasForeignKey(d => d.LiquidacionId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__DetalleLi__liqui__4D8A65FA");
+                    .HasConstraintName("FK_DetalleLiquidacion_Liquidacion");
             });
 
             modelBuilder.Entity<Empleado>(entity =>
             {
                 entity.HasIndex(e => e.UserId)
-                    .HasName("UQ__Empleado__CB9A1CFE0C54C1C1")
+                    .HasName("UQ__Empleado__CB9A1CFE35DEA35C")
                     .IsUnique();
 
                 entity.Property(e => e.Apellido)
@@ -249,10 +246,13 @@ namespace FarmaciaAvellaneda.Data
 
                 entity.Property(e => e.Celular)
                     .HasColumnName("celular")
-                    .HasMaxLength(1)
+                    .HasMaxLength(60)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Cuit).HasColumnName("cuit");
+                entity.Property(e => e.Cuit)
+                    .HasColumnName("cuit")
+                    .HasMaxLength(30)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.Domicilio)
                     .HasColumnName("domicilio")
@@ -273,7 +273,7 @@ namespace FarmaciaAvellaneda.Data
 
                 entity.Property(e => e.Telefono)
                     .HasColumnName("telefono")
-                    .HasMaxLength(1)
+                    .HasMaxLength(60)
                     .IsUnicode(false);
 
                 entity.Property(e => e.UserId)
@@ -283,8 +283,7 @@ namespace FarmaciaAvellaneda.Data
                 entity.HasOne(d => d.User)
                     .WithOne(p => p.Empleado)
                     .HasForeignKey<Empleado>(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Empleado__userId__4218B34E");
+                    .HasConstraintName("FK_Empleado_UserId");
             });
 
             modelBuilder.Entity<GrupoFamiliar>(entity =>
@@ -315,8 +314,7 @@ namespace FarmaciaAvellaneda.Data
                 entity.HasOne(d => d.Empleado)
                     .WithMany(p => p.GrupoFamiliar)
                     .HasForeignKey(d => d.EmpleadoId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__GrupoFami__emple__44F51FF9");
+                    .HasConstraintName("FK_GrupoFamiliar_Empleado");
             });
 
             modelBuilder.Entity<LineaCompra>(entity =>
@@ -332,14 +330,13 @@ namespace FarmaciaAvellaneda.Data
                 entity.HasOne(d => d.Compra)
                     .WithMany(p => p.LineaCompra)
                     .HasForeignKey(d => d.CompraId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__LineaComp__compr__6DF7358C");
+                    .HasConstraintName("FK_LineaCompra_Compra");
 
                 entity.HasOne(d => d.Producto)
                     .WithMany(p => p.LineaCompra)
                     .HasForeignKey(d => d.ProductoId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__LineaComp__produ__6EEB59C5");
+                    .HasConstraintName("FK_LineaCompra_Producto");
             });
 
             modelBuilder.Entity<LineaVenta>(entity =>
@@ -355,14 +352,12 @@ namespace FarmaciaAvellaneda.Data
                 entity.HasOne(d => d.Producto)
                     .WithMany(p => p.LineaVenta)
                     .HasForeignKey(d => d.ProductoId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__LineaVent__produ__683E5C36");
+                    .HasConstraintName("FK_LineaVenta_Producto");
 
                 entity.HasOne(d => d.Venta)
                     .WithMany(p => p.LineaVenta)
                     .HasForeignKey(d => d.VentaId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__LineaVent__venta__674A37FD");
+                    .HasConstraintName("FK_LineaVenta_Venta");
             });
 
             modelBuilder.Entity<Liquidacion>(entity =>
@@ -392,8 +387,7 @@ namespace FarmaciaAvellaneda.Data
                 entity.HasOne(d => d.Empleado)
                     .WithMany(p => p.Liquidacion)
                     .HasForeignKey(d => d.EmpleadoId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Liquidaci__emple__47D18CA4");
+                    .HasConstraintName("FK_Liquidacion_Empleado");
             });
 
             modelBuilder.Entity<Marca>(entity =>
@@ -422,26 +416,23 @@ namespace FarmaciaAvellaneda.Data
                 entity.HasOne(d => d.Caja)
                     .WithMany(p => p.MovimientoCaja)
                     .HasForeignKey(d => d.CajaId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Movimient__cajaI__73B00EE2");
+                    .HasConstraintName("FK_MovimientoCaja_Caja");
 
                 entity.HasOne(d => d.Compra)
                     .WithMany(p => p.MovimientoCaja)
                     .HasForeignKey(d => d.CompraId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Movimient__compr__74A4331B");
+                    .HasConstraintName("FK_MovimientoCaja_Compra");
 
                 entity.HasOne(d => d.Venta)
                     .WithMany(p => p.MovimientoCaja)
                     .HasForeignKey(d => d.VentaId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Movimient__venta__75985754");
+                    .HasConstraintName("FK_MovimientoCaja_Venta");
             });
 
             modelBuilder.Entity<Pago>(entity =>
             {
                 entity.HasIndex(e => e.VentaId)
-                    .HasName("UQ__Pago__40B8EB55B2137B6A")
+                    .HasName("UQ__Pago__40B8EB55CE174DFA")
                     .IsUnique();
 
                 entity.Property(e => e.Monto).HasColumnName("monto");
@@ -453,17 +444,16 @@ namespace FarmaciaAvellaneda.Data
                 entity.HasOne(d => d.Venta)
                     .WithOne(p => p.Pago)
                     .HasForeignKey<Pago>(d => d.VentaId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Pago__ventaId__54376389");
+                    .HasConstraintName("FK_Pago_Venta");
             });
 
             modelBuilder.Entity<Producto>(entity =>
             {
-                entity.Property(e => e.CategoriaId).HasColumnName("categoriaId");
+                entity.Property(e => e.CategoriaProductoId).HasColumnName("categoriaProductoId");
 
                 entity.Property(e => e.Descripcion)
                     .HasColumnName("descripcion")
-                    .HasMaxLength(1)
+                    .HasMaxLength(60)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Estado).HasColumnName("estado");
@@ -480,7 +470,7 @@ namespace FarmaciaAvellaneda.Data
 
                 entity.Property(e => e.Nombre)
                     .HasColumnName("nombre")
-                    .HasMaxLength(1)
+                    .HasMaxLength(60)
                     .IsUnicode(false);
 
                 entity.Property(e => e.PrecioCompra).HasColumnName("precioCompra");
@@ -491,30 +481,30 @@ namespace FarmaciaAvellaneda.Data
 
                 entity.Property(e => e.Stock).HasColumnName("stock");
 
-                entity.HasOne(d => d.Categoria)
+                entity.HasOne(d => d.CategoriaProducto)
                     .WithMany(p => p.Producto)
-                    .HasForeignKey(d => d.CategoriaId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Producto__catego__628582E0");
+                    .HasForeignKey(d => d.CategoriaProductoId)
+                    .HasConstraintName("FK_Producto_Categoria");
 
                 entity.HasOne(d => d.Marca)
                     .WithMany(p => p.Producto)
                     .HasForeignKey(d => d.MarcaId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Producto__marcaI__6379A719");
+                    .HasConstraintName("FK_Producto_Marca");
 
                 entity.HasOne(d => d.Proveedor)
                     .WithMany(p => p.Producto)
                     .HasForeignKey(d => d.ProveedorId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Producto__provee__646DCB52");
+                    .HasConstraintName("FK_Producto_Proveedor");
             });
 
             modelBuilder.Entity<Proveedor>(entity =>
             {
                 entity.Property(e => e.CompraId).HasColumnName("compraId");
 
-                entity.Property(e => e.Cuit).HasColumnName("cuit");
+                entity.Property(e => e.Cuit)
+                    .HasColumnName("cuit")
+                    .HasMaxLength(30)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.RazonSocial)
                     .HasColumnName("razonSocial")
@@ -523,49 +513,46 @@ namespace FarmaciaAvellaneda.Data
 
                 entity.Property(e => e.Telefono)
                     .HasColumnName("telefono")
-                    .HasMaxLength(1)
+                    .HasMaxLength(60)
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.Compra)
                     .WithMany(p => p.Proveedor)
                     .HasForeignKey(d => d.CompraId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Proveedor__compr__5FA91635");
+                    .HasConstraintName("FK_Proveedor_Compra");
             });
 
-            modelBuilder.Entity<SubCategoria>(entity =>
+            modelBuilder.Entity<SubCategoriaProducto>(entity =>
             {
-                entity.Property(e => e.CategoriaId).HasColumnName("categoriaId");
+                entity.Property(e => e.CategoriaProductoId).HasColumnName("categoriaProductoId");
 
                 entity.Property(e => e.Nombre)
                     .HasColumnName("nombre")
                     .HasMaxLength(60)
                     .IsUnicode(false);
 
-                entity.HasOne(d => d.Categoria)
-                    .WithMany(p => p.SubCategoria)
-                    .HasForeignKey(d => d.CategoriaId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__SubCatego__categ__5AE46118");
+                entity.HasOne(d => d.CategoriaProducto)
+                    .WithMany(p => p.SubCategoriaProducto)
+                    .HasForeignKey(d => d.CategoriaProductoId)
+                    .HasConstraintName("FK_SubCategoria_Categoria_Producto");
             });
 
             modelBuilder.Entity<Venta>(entity =>
             {
                 entity.Property(e => e.EmpleadoId).HasColumnName("empleadoId");
 
-                entity.Property(e => e.Estado).HasColumnName("ESTADO");
+                entity.Property(e => e.Estado).HasColumnName("estado");
 
                 entity.Property(e => e.FechaVenta)
                     .HasColumnName("fechaVenta")
                     .HasColumnType("datetime");
 
-                entity.Property(e => e.Total).HasColumnName("TOTAL");
+                entity.Property(e => e.Total).HasColumnName("total");
 
                 entity.HasOne(d => d.Empleado)
                     .WithMany(p => p.Venta)
                     .HasForeignKey(d => d.EmpleadoId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Venta__empleadoI__5066D2A5");
+                    .HasConstraintName("FK_Venta_Empleado");
             });
 
             OnModelCreatingPartial(modelBuilder);

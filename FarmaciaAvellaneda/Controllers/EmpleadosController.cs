@@ -75,7 +75,17 @@ namespace FarmaciaAvellaneda.Controllers
                     if (result.Succeeded)
                     {
                         string userId = await _users.UserIdAsync(empleado.Email);
-                        await _context.Database.ExecuteSqlInterpolatedAsync($"Exec CreateEmployee @Name={empleado.Nombre}, @LastName={empleado.Apellido}, @UserId={userId}");
+                        int cols = await _context.Database.ExecuteSqlInterpolatedAsync(
+                            $@"Exec CreateEmployee 
+                            @Nombre={empleado.Nombre},
+	                        @Apellido={empleado.Apellido},
+	                        @Domicilio={empleado.Domicilio},
+	                        @Cuit={empleado.Cuit},
+	                        @Email={empleado.Email},
+	                        @Celular={empleado.Celular},
+	                        @Telefono={empleado.Telefono},
+	                        @Estado={empleado.Estado},
+	                        @UserId={userId}");
                         await _context.SaveChangesAsync();
                         return RedirectToAction(nameof(Index));
                     }

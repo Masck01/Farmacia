@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 namespace FarmaciaAvellaneda.Models
 {
-    public partial class Categoria
+    public partial class CategoriaProducto
     {
-        public Categoria()
+        public CategoriaProducto()
         {
             Producto = new HashSet<Producto>();
-            SubCategoria = new HashSet<SubCategoria>();
+            SubCategoriaProducto = new HashSet<SubCategoriaProducto>();
         }
 
         public int Id { get; set; }
@@ -16,6 +16,6 @@ namespace FarmaciaAvellaneda.Models
         public byte? Estado { get; set; }
 
         public virtual ICollection<Producto> Producto { get; set; }
-        public virtual ICollection<SubCategoria> SubCategoria { get; set; }
+        public virtual ICollection<SubCategoriaProducto> SubCategoriaProducto { get; set; }
     }
 }
