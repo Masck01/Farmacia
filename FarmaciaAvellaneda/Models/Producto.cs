@@ -21,11 +21,11 @@ namespace FarmaciaAvellaneda.Models
         public DateTime? FechaVencimiento { get; set; }
         public double? PrecioVenta { get; set; }
         public byte? Estado { get; set; }
-        public int CategoriaId { get; set; }
+        public int CategoriaProductoId { get; set; }
         public int MarcaId { get; set; }
         public int ProveedorId { get; set; }
 
-        public virtual Categoria Categoria { get; set; }
+        public virtual CategoriaProducto CategoriaProducto { get; set; }
         public virtual Marca Marca { get; set; }
         public virtual Proveedor Proveedor { get; set; }
         public virtual ICollection<Capacidad> Capacidad { get; set; }

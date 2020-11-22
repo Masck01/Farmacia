@@ -135,7 +135,7 @@ namespace FarmaciaAvellaneda.Controllers
                         if (result.Succeeded)
                             return RedirectToAction(nameof(Index));
                         else
-                            Errors(result);
+                            _users.Errors(result, ModelState);
                     }
                 }
                 catch (DbUpdateConcurrencyException)

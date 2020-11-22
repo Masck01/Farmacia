@@ -10,11 +10,11 @@ using FarmaciaAvellaneda.Models;
 
 namespace FarmaciaAvellaneda.Controllers
 {
-    public class CategoriasController : Controller
+    public class CategoriasProductosController : Controller
     {
         private readonly FarmaciaAvellanedaContext _context;
 
-        public CategoriasController(FarmaciaAvellanedaContext context)
+        public CategoriasProductosController(FarmaciaAvellanedaContext context)
         {
             _context = context;
         }
@@ -22,7 +22,7 @@ namespace FarmaciaAvellaneda.Controllers
         // GET: Categorias
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Categoria.ToListAsync());
+            return View(await _context.CategoriaProducto.ToListAsync());
         }
 
         // GET: Categorias/Details/5
@@ -33,7 +33,7 @@ namespace FarmaciaAvellaneda.Controllers
                 return NotFound();
             }
 
-            var categoria = await _context.Categoria
+            var categoria = await _context.CategoriaProducto
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (categoria == null)
             {
@@ -54,7 +54,7 @@ namespace FarmaciaAvellaneda.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nombre,Estado")] Categoria categoria)
+        public async Task<IActionResult> Create([Bind("Id,Nombre,Estado")] CategoriaProducto categoria)
         {
             if (ModelState.IsValid)
             {
@@ -73,7 +73,7 @@ namespace FarmaciaAvellaneda.Controllers
                 return NotFound();
             }
 
-            var categoria = await _context.Categoria.FindAsync(id);
+            var categoria = await _context.CategoriaProducto.FindAsync(id);
             if (categoria == null)
             {
                 return NotFound();
@@ -86,7 +86,7 @@ namespace FarmaciaAvellaneda.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Estado")] Categoria categoria)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Estado")] CategoriaProducto categoria)
         {
             if (id != categoria.Id)
             {
@@ -124,7 +124,7 @@ namespace FarmaciaAvellaneda.Controllers
                 return NotFound();
             }
 
-            var categoria = await _context.Categoria
+            var categoria = await _context.CategoriaProducto
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (categoria == null)
             {
@@ -139,15 +139,15 @@ namespace FarmaciaAvellaneda.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var categoria = await _context.Categoria.FindAsync(id);
-            _context.Categoria.Remove(categoria);
+            var categoria = await _context.CategoriaProducto.FindAsync(id);
+            _context.CategoriaProducto.Remove(categoria);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool CategoriaExists(int id)
         {
-            return _context.Categoria.Any(e => e.Id == id);
+            return _context.CategoriaProducto.Any(e => e.Id == id);
         }
     }
 }
