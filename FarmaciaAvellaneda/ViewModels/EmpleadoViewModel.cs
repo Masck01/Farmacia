@@ -30,8 +30,17 @@ namespace FarmaciaAvellaneda.ViewModels
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
         [Required]
+        public string CBU { get; set; }
+        [Required]
+        public string Cuenta { get; set; }
+        [Required]
+        public string Banco { get; set; }
+        [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
+        [Required]
+        public string roles { get; set; }
+
     }
     public enum Estados
     {

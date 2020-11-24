@@ -13,8 +13,8 @@ namespace FarmaciaAvellaneda.Models
         public int Id { get; set; }
         public string Descripcion { get; set; }
         public byte? Tipo { get; set; }
-        public double? MontoFijo { get; set; }
-        public double? MontoVariable { get; set; }
+        public double? Monto { get; set; }
+        public bool? Exento { get; set; }
 
         public virtual ICollection<DetalleLiquidacion> DetalleLiquidacion { get; set; }
     }

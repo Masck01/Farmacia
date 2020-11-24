@@ -57,7 +57,7 @@ namespace FarmaciaAvellaneda.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FechaDesde,FechaHasta,SalarioNeto,PeriodoLiquidacion,Estado,Retenciones,SalarioBruto,EmpleadoId")] Liquidacion liquidacion)
+        public async Task<IActionResult> Create([Bind("Id,FechaDesde,FechaHasta,SalarioNeto,PeriodoLiquidacion,Estado,TotalRemunerado,TotalDeduccion,EmpleadoId")] Liquidacion liquidacion)
         {
             if (ModelState.IsValid)
             {
@@ -91,7 +91,7 @@ namespace FarmaciaAvellaneda.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FechaDesde,FechaHasta,SalarioNeto,PeriodoLiquidacion,Estado,Retenciones,SalarioBruto,EmpleadoId")] Liquidacion liquidacion)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,FechaDesde,FechaHasta,SalarioNeto,PeriodoLiquidacion,Estado,TotalRemunerado,TotalDeduccion,EmpleadoId")] Liquidacion liquidacion)
         {
             if (id != liquidacion.Id)
             {

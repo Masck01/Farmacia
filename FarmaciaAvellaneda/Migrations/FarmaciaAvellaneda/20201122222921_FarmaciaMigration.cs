@@ -62,6 +62,20 @@ namespace FarmaciaAvellaneda.Migrations.FarmaciaAvellaneda
                 });
 
             migrationBuilder.CreateTable(
+                name: "CajaAhorro",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false, defaultValueSql: "(newid())"),
+                    cbu = table.Column<string>(maxLength: 450, nullable: true),
+                    Cuenta = table.Column<string>(maxLength: 450, nullable: true),
+                    Banco = table.Column<string>(unicode: false, maxLength: 255, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CajaAhorro", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "CategoriaProducto",
                 columns: table => new
                 {
@@ -95,14 +109,28 @@ namespace FarmaciaAvellaneda.Migrations.FarmaciaAvellaneda
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    descripcion = table.Column<string>(unicode: false, maxLength: 60, nullable: true),
+                    descripcion = table.Column<string>(unicode: false, maxLength: 200, nullable: true),
                     tipo = table.Column<byte>(nullable: true),
-                    montoFijo = table.Column<double>(nullable: true),
-                    montoVariable = table.Column<double>(nullable: true)
+                    monto = table.Column<double>(nullable: true),
+                    exento = table.Column<bool>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Concepto", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Empresa",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false, defaultValueSql: "(newid())"),
+                    nombre = table.Column<string>(unicode: false, maxLength: 255, nullable: false),
+                    cuit = table.Column<string>(unicode: false, maxLength: 60, nullable: false),
+                    direccion = table.Column<string>(unicode: false, maxLength: 200, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Empresa", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -226,33 +254,6 @@ namespace FarmaciaAvellaneda.Migrations.FarmaciaAvellaneda
                 });
 
             migrationBuilder.CreateTable(
-                name: "Empleado",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    apellido = table.Column<string>(unicode: false, maxLength: 30, nullable: true),
-                    nombre = table.Column<string>(unicode: false, maxLength: 30, nullable: true),
-                    cuit = table.Column<string>(unicode: false, maxLength: 30, nullable: true),
-                    email = table.Column<string>(unicode: false, maxLength: 60, nullable: true),
-                    celular = table.Column<string>(unicode: false, maxLength: 60, nullable: true),
-                    telefono = table.Column<string>(unicode: false, maxLength: 60, nullable: true),
-                    domicilio = table.Column<string>(unicode: false, maxLength: 60, nullable: true),
-                    estado = table.Column<byte>(nullable: true),
-                    userId = table.Column<string>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Empleado", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Empleado_UserId",
-                        column: x => x.userId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "SubCategoriaProducto",
                 columns: table => new
                 {
@@ -295,73 +296,42 @@ namespace FarmaciaAvellaneda.Migrations.FarmaciaAvellaneda
                 });
 
             migrationBuilder.CreateTable(
-                name: "GrupoFamiliar",
+                name: "Empleado",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    dni = table.Column<int>(nullable: true),
                     apellido = table.Column<string>(unicode: false, maxLength: 30, nullable: true),
                     nombre = table.Column<string>(unicode: false, maxLength: 30, nullable: true),
-                    fechaNacimiento = table.Column<DateTime>(type: "date", nullable: true),
-                    parentesco = table.Column<string>(unicode: false, maxLength: 30, nullable: true),
-                    empleadoId = table.Column<int>(nullable: false)
+                    cuit = table.Column<string>(unicode: false, maxLength: 30, nullable: true),
+                    email = table.Column<string>(unicode: false, maxLength: 60, nullable: true),
+                    celular = table.Column<string>(unicode: false, maxLength: 60, nullable: true),
+                    telefono = table.Column<string>(unicode: false, maxLength: 60, nullable: true),
+                    domicilio = table.Column<string>(unicode: false, maxLength: 60, nullable: true),
+                    estado = table.Column<byte>(nullable: true),
+                    userId = table.Column<string>(nullable: false),
+                    empresaId = table.Column<Guid>(nullable: false),
+                    cajaAhorroId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_GrupoFamiliar", x => x.Id);
+                    table.PrimaryKey("PK_Empleado", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_GrupoFamiliar_Empleado",
-                        column: x => x.empleadoId,
-                        principalTable: "Empleado",
+                        name: "FK_Empleado_CajaAhorro",
+                        column: x => x.cajaAhorroId,
+                        principalTable: "CajaAhorro",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Liquidacion",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    fechaDesde = table.Column<DateTime>(type: "date", nullable: true),
-                    fechaHasta = table.Column<DateTime>(type: "date", nullable: true),
-                    salarioNeto = table.Column<double>(nullable: true),
-                    periodoLiquidacion = table.Column<DateTime>(type: "date", nullable: true),
-                    estado = table.Column<byte>(nullable: true),
-                    retenciones = table.Column<double>(nullable: true),
-                    salarioBruto = table.Column<double>(nullable: true),
-                    empleadoId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Liquidacion", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Liquidacion_Empleado",
-                        column: x => x.empleadoId,
-                        principalTable: "Empleado",
+                        name: "FK_Empleado_Empresa",
+                        column: x => x.empresaId,
+                        principalTable: "Empresa",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Venta",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    fechaVenta = table.Column<DateTime>(type: "datetime", nullable: true),
-                    total = table.Column<double>(nullable: true),
-                    estado = table.Column<byte>(nullable: true),
-                    empleadoId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Venta", x => x.Id);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Venta_Empleado",
-                        column: x => x.empleadoId,
-                        principalTable: "Empleado",
+                        name: "FK_Empleado_UserId",
+                        column: x => x.userId,
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -408,84 +378,75 @@ namespace FarmaciaAvellaneda.Migrations.FarmaciaAvellaneda
                 });
 
             migrationBuilder.CreateTable(
-                name: "DetalleLiquidacion",
+                name: "GrupoFamiliar",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    unidad = table.Column<int>(nullable: true),
-                    haberes = table.Column<string>(unicode: false, maxLength: 60, nullable: true),
-                    conceptoId = table.Column<int>(nullable: false),
-                    liquidacionId = table.Column<int>(nullable: false)
+                    dni = table.Column<int>(nullable: true),
+                    apellido = table.Column<string>(unicode: false, maxLength: 30, nullable: true),
+                    nombre = table.Column<string>(unicode: false, maxLength: 30, nullable: true),
+                    fechaNacimiento = table.Column<DateTime>(type: "date", nullable: true),
+                    parentesco = table.Column<string>(unicode: false, maxLength: 30, nullable: true),
+                    empleadoId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DetalleLiquidacion", x => x.Id);
+                    table.PrimaryKey("PK_GrupoFamiliar", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_DetalleLiquidacion_Concepto",
-                        column: x => x.conceptoId,
-                        principalTable: "Concepto",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_DetalleLiquidacion_Liquidacion",
-                        column: x => x.liquidacionId,
-                        principalTable: "Liquidacion",
+                        name: "FK_GrupoFamiliar_Empleado",
+                        column: x => x.empleadoId,
+                        principalTable: "Empleado",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "MovimientoCaja",
+                name: "Liquidacion",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    descripcion = table.Column<string>(unicode: false, maxLength: 255, nullable: true),
-                    cajaId = table.Column<int>(nullable: false),
-                    compraId = table.Column<int>(nullable: false),
-                    ventaId = table.Column<int>(nullable: false)
+                    fechaDesde = table.Column<DateTime>(type: "date", nullable: true),
+                    fechaHasta = table.Column<DateTime>(type: "date", nullable: true),
+                    salarioNeto = table.Column<double>(nullable: true),
+                    salarioDescripto = table.Column<string>(unicode: false, maxLength: 255, nullable: true),
+                    lugarPago = table.Column<string>(unicode: false, maxLength: 255, nullable: true),
+                    periodoLiquidacion = table.Column<string>(unicode: false, maxLength: 60, nullable: true),
+                    estado = table.Column<byte>(nullable: true),
+                    totalRemunerado = table.Column<double>(nullable: true),
+                    totalDeduccion = table.Column<double>(nullable: true),
+                    empleadoId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MovimientoCaja", x => x.Id);
+                    table.PrimaryKey("PK_Liquidacion", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_MovimientoCaja_Caja",
-                        column: x => x.cajaId,
-                        principalTable: "Caja",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_MovimientoCaja_Compra",
-                        column: x => x.compraId,
-                        principalTable: "Compra",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_MovimientoCaja_Venta",
-                        column: x => x.ventaId,
-                        principalTable: "Venta",
+                        name: "FK_Liquidacion_Empleado",
+                        column: x => x.empleadoId,
+                        principalTable: "Empleado",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Pago",
+                name: "Venta",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    monto = table.Column<double>(nullable: true),
-                    vuelto = table.Column<double>(nullable: true),
-                    ventaId = table.Column<int>(nullable: false)
+                    fechaVenta = table.Column<DateTime>(type: "datetime", nullable: true),
+                    total = table.Column<double>(nullable: true),
+                    estado = table.Column<byte>(nullable: true),
+                    empleadoId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Pago", x => x.Id);
+                    table.PrimaryKey("PK_Venta", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Pago_Venta",
-                        column: x => x.ventaId,
-                        principalTable: "Venta",
+                        name: "FK_Venta_Empleado",
+                        column: x => x.empleadoId,
+                        principalTable: "Empleado",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -540,6 +501,35 @@ namespace FarmaciaAvellaneda.Migrations.FarmaciaAvellaneda
                 });
 
             migrationBuilder.CreateTable(
+                name: "DetalleLiquidacion",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    unidad = table.Column<int>(nullable: true),
+                    haber = table.Column<string>(unicode: false, maxLength: 200, nullable: true),
+                    deduccion = table.Column<string>(unicode: false, maxLength: 200, nullable: true),
+                    conceptoId = table.Column<int>(nullable: false),
+                    liquidacionId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DetalleLiquidacion", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DetalleLiquidacion_Concepto",
+                        column: x => x.conceptoId,
+                        principalTable: "Concepto",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_DetalleLiquidacion_Liquidacion",
+                        column: x => x.liquidacionId,
+                        principalTable: "Liquidacion",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "LineaVenta",
                 columns: table => new
                 {
@@ -561,6 +551,61 @@ namespace FarmaciaAvellaneda.Migrations.FarmaciaAvellaneda
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_LineaVenta_Venta",
+                        column: x => x.ventaId,
+                        principalTable: "Venta",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MovimientoCaja",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    descripcion = table.Column<string>(unicode: false, maxLength: 255, nullable: true),
+                    cajaId = table.Column<int>(nullable: false),
+                    compraId = table.Column<int>(nullable: false),
+                    ventaId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MovimientoCaja", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_MovimientoCaja_Caja",
+                        column: x => x.cajaId,
+                        principalTable: "Caja",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_MovimientoCaja_Compra",
+                        column: x => x.compraId,
+                        principalTable: "Compra",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_MovimientoCaja_Venta",
+                        column: x => x.ventaId,
+                        principalTable: "Venta",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Pago",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    monto = table.Column<double>(nullable: true),
+                    vuelto = table.Column<double>(nullable: true),
+                    ventaId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Pago", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Pago_Venta",
                         column: x => x.ventaId,
                         principalTable: "Venta",
                         principalColumn: "Id",
@@ -622,7 +667,18 @@ namespace FarmaciaAvellaneda.Migrations.FarmaciaAvellaneda
                 column: "liquidacionId");
 
             migrationBuilder.CreateIndex(
-                name: "UQ__Empleado__CB9A1CFE35DEA35C",
+                name: "UQ__Empleado__57E86AD0FC9158A8",
+                table: "Empleado",
+                column: "cajaAhorroId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Empleado_empresaId",
+                table: "Empleado",
+                column: "empresaId");
+
+            migrationBuilder.CreateIndex(
+                name: "UQ__Empleado__CB9A1CFED2E64194",
                 table: "Empleado",
                 column: "userId",
                 unique: true);
@@ -673,7 +729,7 @@ namespace FarmaciaAvellaneda.Migrations.FarmaciaAvellaneda
                 column: "ventaId");
 
             migrationBuilder.CreateIndex(
-                name: "UQ__Pago__40B8EB55CE174DFA",
+                name: "UQ__Pago__40B8EB55BDD3C069",
                 table: "Pago",
                 column: "ventaId",
                 unique: true);
@@ -782,6 +838,12 @@ namespace FarmaciaAvellaneda.Migrations.FarmaciaAvellaneda
 
             migrationBuilder.DropTable(
                 name: "Compra");
+
+            migrationBuilder.DropTable(
+                name: "CajaAhorro");
+
+            migrationBuilder.DropTable(
+                name: "Empresa");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

@@ -59,7 +59,7 @@ namespace FarmaciaAvellaneda.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Unidad,Haberes,ConceptoId,LiquidacionId")] DetalleLiquidacion detalleLiquidacion)
+        public async Task<IActionResult> Create([Bind("Id,Unidad,Haber,ConceptoId,LiquidacionId")] DetalleLiquidacion detalleLiquidacion)
         {
             if (ModelState.IsValid)
             {
@@ -95,7 +95,7 @@ namespace FarmaciaAvellaneda.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Unidad,Haberes,ConceptoId,LiquidacionId")] DetalleLiquidacion detalleLiquidacion)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Unidad,Haber,ConceptoId,LiquidacionId")] DetalleLiquidacion detalleLiquidacion)
         {
             if (id != detalleLiquidacion.Id)
             {

@@ -7,7 +7,8 @@ namespace FarmaciaAvellaneda.Models
     {
         public int Id { get; set; }
         public int? Unidad { get; set; }
-        public string Haberes { get; set; }
+        public string Haber { get; set; }
+        public string Deduccion { get; set; }
         public int ConceptoId { get; set; }
         public int LiquidacionId { get; set; }
 

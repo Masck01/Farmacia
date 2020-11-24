@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FarmaciaAvellaneda.Migrations.FarmaciaAvellaneda
 {
     [DbContext(typeof(FarmaciaAvellanedaContext))]
-    [Migration("20201121082245_FarmaciaMigration")]
+    [Migration("20201122222921_FarmaciaMigration")]
     partial class FarmaciaMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -245,6 +245,32 @@ namespace FarmaciaAvellaneda.Migrations.FarmaciaAvellaneda
                     b.ToTable("Caja");
                 });
 
+            modelBuilder.Entity("FarmaciaAvellaneda.Models.CajaAhorro", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValueSql("(newid())");
+
+                    b.Property<string>("Banco")
+                        .HasColumnType("varchar(255)")
+                        .HasMaxLength(255)
+                        .IsUnicode(false);
+
+                    b.Property<string>("Cbu")
+                        .HasColumnName("cbu")
+                        .HasColumnType("nvarchar(450)")
+                        .HasMaxLength(450);
+
+                    b.Property<string>("Cuenta")
+                        .HasColumnType("nvarchar(450)")
+                        .HasMaxLength(450);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CajaAhorro");
+                });
+
             modelBuilder.Entity("FarmaciaAvellaneda.Models.Capacidad", b =>
                 {
                     b.Property<int>("Id")
@@ -322,16 +348,16 @@ namespace FarmaciaAvellaneda.Migrations.FarmaciaAvellaneda
 
                     b.Property<string>("Descripcion")
                         .HasColumnName("descripcion")
-                        .HasColumnType("varchar(60)")
-                        .HasMaxLength(60)
+                        .HasColumnType("varchar(200)")
+                        .HasMaxLength(200)
                         .IsUnicode(false);
 
-                    b.Property<double?>("MontoFijo")
-                        .HasColumnName("montoFijo")
-                        .HasColumnType("float");
+                    b.Property<bool?>("Exento")
+                        .HasColumnName("exento")
+                        .HasColumnType("bit");
 
-                    b.Property<double?>("MontoVariable")
-                        .HasColumnName("montoVariable")
+                    b.Property<double?>("Monto")
+                        .HasColumnName("monto")
                         .HasColumnType("float");
 
                     b.Property<byte?>("Tipo")
@@ -354,10 +380,16 @@ namespace FarmaciaAvellaneda.Migrations.FarmaciaAvellaneda
                         .HasColumnName("conceptoId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Haberes")
-                        .HasColumnName("haberes")
-                        .HasColumnType("varchar(60)")
-                        .HasMaxLength(60)
+                    b.Property<string>("Deduccion")
+                        .HasColumnName("deduccion")
+                        .HasColumnType("varchar(200)")
+                        .HasMaxLength(200)
+                        .IsUnicode(false);
+
+                    b.Property<string>("Haber")
+                        .HasColumnName("haber")
+                        .HasColumnType("varchar(200)")
+                        .HasMaxLength(200)
                         .IsUnicode(false);
 
                     b.Property<int>("LiquidacionId")
@@ -390,6 +422,10 @@ namespace FarmaciaAvellaneda.Migrations.FarmaciaAvellaneda
                         .HasMaxLength(30)
                         .IsUnicode(false);
 
+                    b.Property<Guid>("CajaAhorroId")
+                        .HasColumnName("cajaAhorroId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Celular")
                         .HasColumnName("celular")
                         .HasColumnType("varchar(60)")
@@ -414,6 +450,10 @@ namespace FarmaciaAvellaneda.Migrations.FarmaciaAvellaneda
                         .HasMaxLength(60)
                         .IsUnicode(false);
 
+                    b.Property<Guid>("EmpresaId")
+                        .HasColumnName("empresaId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<byte?>("Estado")
                         .HasColumnName("estado")
                         .HasColumnType("tinyint");
@@ -437,11 +477,49 @@ namespace FarmaciaAvellaneda.Migrations.FarmaciaAvellaneda
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CajaAhorroId")
+                        .IsUnique()
+                        .HasName("UQ__Empleado__57E86AD0FC9158A8");
+
+                    b.HasIndex("EmpresaId");
+
                     b.HasIndex("UserId")
                         .IsUnique()
-                        .HasName("UQ__Empleado__CB9A1CFE35DEA35C");
+                        .HasName("UQ__Empleado__CB9A1CFED2E64194");
 
                     b.ToTable("Empleado");
+                });
+
+            modelBuilder.Entity("FarmaciaAvellaneda.Models.Empresa", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValueSql("(newid())");
+
+                    b.Property<string>("Cuit")
+                        .IsRequired()
+                        .HasColumnName("cuit")
+                        .HasColumnType("varchar(60)")
+                        .HasMaxLength(60)
+                        .IsUnicode(false);
+
+                    b.Property<string>("Direccion")
+                        .HasColumnName("direccion")
+                        .HasColumnType("varchar(200)")
+                        .HasMaxLength(200)
+                        .IsUnicode(false);
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnName("nombre")
+                        .HasColumnType("varchar(255)")
+                        .HasMaxLength(255)
+                        .IsUnicode(false);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Empresa");
                 });
 
             modelBuilder.Entity("FarmaciaAvellaneda.Models.GrupoFamiliar", b =>
@@ -575,20 +653,34 @@ namespace FarmaciaAvellaneda.Migrations.FarmaciaAvellaneda
                         .HasColumnName("fechaHasta")
                         .HasColumnType("date");
 
-                    b.Property<DateTime?>("PeriodoLiquidacion")
+                    b.Property<string>("LugarPago")
+                        .HasColumnName("lugarPago")
+                        .HasColumnType("varchar(255)")
+                        .HasMaxLength(255)
+                        .IsUnicode(false);
+
+                    b.Property<string>("PeriodoLiquidacion")
                         .HasColumnName("periodoLiquidacion")
-                        .HasColumnType("date");
+                        .HasColumnType("varchar(60)")
+                        .HasMaxLength(60)
+                        .IsUnicode(false);
 
-                    b.Property<double?>("Retenciones")
-                        .HasColumnName("retenciones")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("SalarioBruto")
-                        .HasColumnName("salarioBruto")
-                        .HasColumnType("float");
+                    b.Property<string>("SalarioDescripto")
+                        .HasColumnName("salarioDescripto")
+                        .HasColumnType("varchar(255)")
+                        .HasMaxLength(255)
+                        .IsUnicode(false);
 
                     b.Property<double?>("SalarioNeto")
                         .HasColumnName("salarioNeto")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("TotalDeduccion")
+                        .HasColumnName("totalDeduccion")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("TotalRemunerado")
+                        .HasColumnName("totalRemunerado")
                         .HasColumnType("float");
 
                     b.HasKey("Id");
@@ -679,7 +771,7 @@ namespace FarmaciaAvellaneda.Migrations.FarmaciaAvellaneda
 
                     b.HasIndex("VentaId")
                         .IsUnique()
-                        .HasName("UQ__Pago__40B8EB55CE174DFA");
+                        .HasName("UQ__Pago__40B8EB55BDD3C069");
 
                     b.ToTable("Pago");
                 });
@@ -920,6 +1012,19 @@ namespace FarmaciaAvellaneda.Migrations.FarmaciaAvellaneda
 
             modelBuilder.Entity("FarmaciaAvellaneda.Models.Empleado", b =>
                 {
+                    b.HasOne("FarmaciaAvellaneda.Models.CajaAhorro", "CajaAhorro")
+                        .WithOne("Empleado")
+                        .HasForeignKey("FarmaciaAvellaneda.Models.Empleado", "CajaAhorroId")
+                        .HasConstraintName("FK_Empleado_CajaAhorro")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FarmaciaAvellaneda.Models.Empresa", "Empresa")
+                        .WithMany("Empleado")
+                        .HasForeignKey("EmpresaId")
+                        .HasConstraintName("FK_Empleado_Empresa")
+                        .IsRequired();
+
                     b.HasOne("FarmaciaAvellaneda.Models.AspNetUsers", "User")
                         .WithOne("Empleado")
                         .HasForeignKey("FarmaciaAvellaneda.Models.Empleado", "UserId")
