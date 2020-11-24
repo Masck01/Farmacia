@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using FarmaciaAvellaneda.Models;
 using FarmaciaAvellaneda.Data;
 using Microsoft.AspNetCore.Identity;
+using FarmaciaAvellaneda.ViewModels;
 
 namespace FarmaciaAvellaneda.Controllers
 {
@@ -58,7 +59,7 @@ namespace FarmaciaAvellaneda.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         //public async Task<IActionResult> Create([Bind("Id,Name,NormalizedName,ConcurrencyStamp")] AspNetRoles aspNetRoles)
-        public async Task<IActionResult> Create([Bind("Name")] AspNetRoles aspNetRoles)
+        public async Task<IActionResult> Create([Bind("Name, Monto")] RolesViewModel aspNetRoles)
         {
             if (ModelState.IsValid)
             {
@@ -68,6 +69,8 @@ namespace FarmaciaAvellaneda.Controllers
                 //return RedirectToAction(nameof(Index));
                 if (rol.Succeeded)
                 {
+                    await _context.Database.ExecuteSqlInterpolatedAsync($"EXEC sp_create_concepto @Descripcion={aspNetRoles.Name}, @Monto={aspNetRoles.Monto}");
+                    await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
                 }
                 else

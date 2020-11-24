@@ -4,7 +4,7 @@ using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace FarmaciaAvellaneda.Data
+namespace FarmaciaAvellaneda.Models
 {
     public class ApplicationDbContext : IdentityDbContext
     {

@@ -5,8 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using FarmaciaAvellaneda.ViewModels;
-using FarmaciaAvellaneda.Data;
 using FarmaciaAvellaneda.Models;
+using FarmaciaAvellaneda.Data;
 
 namespace FarmaciaAvellaneda.Services
 {
@@ -14,12 +14,14 @@ namespace FarmaciaAvellaneda.Services
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly FarmaciaAvellanedaContext _context;
+        private readonly RoleManager<IdentityRole> _roleManager;
         public UsersServices(UserManager<IdentityUser> userManager,
-            FarmaciaAvellanedaContext context)
+            FarmaciaAvellanedaContext context,
+            RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _context = context;
-
+            _roleManager = roleManager;
         }
 
         public async Task<IdentityResult> CreateUserAsync(string email, string password)
@@ -76,6 +78,29 @@ namespace FarmaciaAvellaneda.Services
         {
             UserViewModel user = new UserViewModel(identityUser.Email, identityUser.PasswordHash, identityUser.EmailConfirmed);
             return user;
+        }
+
+        public async Task<IdentityResult> AddUserToRolAsync(string RolId, string UserId)
+        {
+            IdentityUser user = await _userManager.FindByIdAsync(UserId);
+            string rolName = _context.AspNetRoles.FirstOrDefault(b => b.Id == RolId).Name;
+            IdentityResult result = await _userManager.AddToRoleAsync(user, rolName);
+            return result;
+        }
+
+        public async Task<List<string>> GetUserInRolesAsync(string UserId)
+        {
+            List<string> names = new List<string>();
+            IdentityUser user = await _userManager.FindByIdAsync(UserId);
+            IQueryable<IdentityRole> roles = _roleManager.Roles;
+            foreach (var rol in roles.ToList())
+            {
+                if(await _userManager.IsInRoleAsync(user, rol.Name))
+                {
+                    names.Add(rol.Name);
+                }
+            }
+            return names;
         }
     }
 }

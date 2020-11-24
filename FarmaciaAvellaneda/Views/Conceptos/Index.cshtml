@@ -20,10 +20,7 @@
                 @Html.DisplayNameFor(model => model.Tipo)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MontoFijo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MontoVariable)
+                @Html.DisplayNameFor(model => model.Monto)
             </th>
             <th></th>
         </tr>
@@ -38,10 +35,7 @@
                 @Html.DisplayFor(modelItem => item.Tipo)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.MontoFijo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MontoVariable)
+                @Html.DisplayFor(modelItem => item.Monto)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

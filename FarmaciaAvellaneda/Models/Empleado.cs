@@ -22,7 +22,11 @@ namespace FarmaciaAvellaneda.Models
         public string Domicilio { get; set; }
         public byte? Estado { get; set; }
         public string UserId { get; set; }
+        public Guid EmpresaId { get; set; }
+        public Guid CajaAhorroId { get; set; }
 
+        public virtual CajaAhorro CajaAhorro { get; set; }
+        public virtual Empresa Empresa { get; set; }
         public virtual AspNetUsers User { get; set; }
         public virtual ICollection<GrupoFamiliar> GrupoFamiliar { get; set; }
         public virtual ICollection<Liquidacion> Liquidacion { get; set; }

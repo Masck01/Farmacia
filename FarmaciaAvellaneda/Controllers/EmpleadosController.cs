@@ -55,6 +55,7 @@ namespace FarmaciaAvellaneda.Controllers
         // GET: Empleados/Create
         public IActionResult Create()
         {
+            ViewData["roles"] = new SelectList(_context.AspNetRoles, "Id", "Name");
             //ViewData["UserId"] = new SelectList(_context.AspNetUsers, "Id", "Id");
             return View();
         }
@@ -75,19 +76,26 @@ namespace FarmaciaAvellaneda.Controllers
                     if (result.Succeeded)
                     {
                         string userId = await _users.UserIdAsync(empleado.Email);
-                        int cols = await _context.Database.ExecuteSqlInterpolatedAsync(
-                            $@"Exec CreateEmployee 
-                            @Nombre={empleado.Nombre},
-	                        @Apellido={empleado.Apellido},
-	                        @Domicilio={empleado.Domicilio},
-	                        @Cuit={empleado.Cuit},
-	                        @Email={empleado.Email},
-	                        @Celular={empleado.Celular},
-	                        @Telefono={empleado.Telefono},
-	                        @Estado={empleado.Estado},
-	                        @UserId={userId}");
-                        await _context.SaveChangesAsync();
-                        return RedirectToAction(nameof(Index));
+                        IdentityResult result1 = await _users.AddUserToRolAsync(empleado.roles, userId);
+                        if (result1.Succeeded)
+                        {
+                            await _context.Database.ExecuteSqlInterpolatedAsync(
+                                $@"Exec CreateEmployee 
+                                @Nombre={empleado.Nombre},
+	                            @Apellido={empleado.Apellido},
+	                            @Domicilio={empleado.Domicilio},
+	                            @Cuit={empleado.Cuit},
+	                            @Email={empleado.Email},
+	                            @Celular={empleado.Celular},
+	                            @Telefono={empleado.Telefono},
+	                            @Estado={empleado.Estado},
+                                @Cbu={empleado.CBU},
+                                @Cuenta={empleado.Cuenta},
+                                @Banco={empleado.Banco},
+	                            @UserId={userId}");
+                            await _context.SaveChangesAsync();
+                            return RedirectToAction(nameof(Index));
+                        }
                     }
                     else
                         _users.Errors(result, ModelState);

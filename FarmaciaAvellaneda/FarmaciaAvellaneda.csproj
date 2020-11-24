@@ -70,6 +70,8 @@
     <Compile Remove="Migrations\FarmaciaAvellaneda\20201119043542_SP_Migrations.Designer.cs" />
     <Compile Remove="Migrations\FarmaciaAvellaneda\20201119044304_SP_Migrations.cs" />
     <Compile Remove="Migrations\FarmaciaAvellaneda\20201119044304_SP_Migrations.Designer.cs" />
+    <Compile Remove="Migrations\FarmaciaAvellaneda\20201121082245_FarmaciaMigration.cs" />
+    <Compile Remove="Migrations\FarmaciaAvellaneda\20201121082245_FarmaciaMigration.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -92,7 +94,6 @@
 
   <ItemGroup>
     <Folder Include="Data\Migrations\" />
-    <Folder Include="Migrations\FarmaciaAvellaneda\" />
   </ItemGroup>
 
 </Project>

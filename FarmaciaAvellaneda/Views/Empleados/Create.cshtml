@@ -31,20 +31,35 @@
                 <span asp-validation-for="Domicilio" class="text-danger"></span>
             </div>
             <div class="form-group">
-                    <label asp-for="Cuit" class="control-label"></label>
-                    <input asp-for="Cuit" class="form-control" />
-                    <span asp-validation-for="Cuit" class="text-danger"></span>
-                </div>
+                <label asp-for="Cuit" class="control-label"></label>
+                <input asp-for="Cuit" class="form-control" />
+                <span asp-validation-for="Cuit" class="text-danger"></span>
+            </div>
             <div class="form-group">
-                    <label asp-for="Celular" class="control-label"></label>
-                    <input asp-for="Celular" class="form-control" />
-                    <span asp-validation-for="Celular" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Telefono" class="control-label"></label>
-                    <input asp-for="Telefono" class="form-control" />
-                    <span asp-validation-for="Telefono" class="text-danger"></span>
-                </div>
+                <label asp-for="Celular" class="control-label"></label>
+                <input asp-for="Celular" class="form-control" />
+                <span asp-validation-for="Celular" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Telefono" class="control-label"></label>
+                <input asp-for="Telefono" class="form-control" />
+                <span asp-validation-for="Telefono" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CBU" class="control-label"></label>
+                <input asp-for="CBU" class="form-control" />
+                <span asp-validation-for="CBU" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Cuenta" class="control-label"></label>
+                <input asp-for="Cuenta" class="form-control" />
+                <span asp-validation-for="Cuenta" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Banco" class="control-label"></label>
+                <input asp-for="Banco" class="form-control" />
+                <span asp-validation-for="Banco" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="Email" class="control-label"></label>
                 <input asp-for="Email" class="form-control" />
@@ -55,19 +70,23 @@
                 <input asp-for="Password" class="form-control" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
-            @*<div class="form-group">
-                    <label asp-for="Estado" class="control-label"></label>
-                    <input asp-for="Estado" class="form-control" />
-                    <span asp-validation-for="Estado" class="text-danger"></span>
-                </div>*@
-            @*<div class="form-group">
-                    <label asp-for="UserId" class="control-label"></label>
-                    <select asp-for="UserId" class ="form-control" asp-items="ViewBag.UserId"></select>
-                </div>*@
             <div class="form-group">
                 <label asp-for="Estado" class="control-label"></label>
                 <select asp-for="Estado" class="form-control" asp-items="Html.GetEnumSelectList<Estados>()"></select>
             </div>
+            <div class="form-group">
+                <label asp-for="roles" class="control-label"></label>
+                <select asp-for="roles" class="form-control" asp-items="ViewBag.roles"></select>
+            </div>
+            @*<div class="form-group">
+            <label asp-for="Estado" class="control-label"></label>
+            <input asp-for="Estado" class="form-control" />
+            <span asp-validation-for="Estado" class="text-danger"></span>
+        </div>*@
+            @*<div class="form-group">
+            <label asp-for="UserId" class="control-label"></label>
+            <select asp-for="UserId" class ="form-control" asp-items="ViewBag.UserId"></select>
+        </div>*@
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
