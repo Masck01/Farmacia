@@ -55,10 +55,11 @@ namespace FarmaciaAvellaneda.Controllers
         // GET: Liquidaciones/Create
         public async Task<IActionResult> CreateAsync(int? id)
         {
+            List<string> detalles = new List<string> { "Vendedor", "Jubilacion", "OSDE" };
             LiquidacionViewModel model = new LiquidacionViewModel
             {
                 Empresa = (await _users.ListOfAsync<Empresa>()).FirstOrDefault(),
-                Empleado = (await _users.ListOfAsync<Empleado>()).Find(m => m.Id == id),
+                Empleado = await _context.Empleado.Include(l => l.CajaAhorro).FirstOrDefaultAsync(m => m.Id == id),
                 Concepto = (await _users.ListOfAsync<Concepto>()).Find(c =>
                 {
 
@@ -73,7 +74,9 @@ namespace FarmaciaAvellaneda.Controllers
                     //List<string> names = await _users.GetUserInRolesAsync(UserId);
                     return c.Descripcion.Contains(myfunc().Result);
                 }),
-                Liquidacion = (await _users.ListOfAsync<Liquidacion>()).FirstOrDefault(l => l.EmpleadoId == id)
+                Liquidacion = (await _users.ListOfAsync<Liquidacion>()).FirstOrDefault(l => l.EmpleadoId == id),
+                Conceptos = (await _users.ListOfAsync<Concepto>()).Where(c => detalles.Any(d => c.Descripcion.Contains(d))).ToList()
+
             };
 
             //ViewData["EmpleadoId"] = new SelectList(_context.Empleado, "Id", "UserId");

@@ -15,6 +15,7 @@ namespace FarmaciaAvellaneda.Models
         public byte? Tipo { get; set; }
         public double? Monto { get; set; }
         public bool? Exento { get; set; }
+        public int? Unidad { get; set; }
 
         public virtual ICollection<DetalleLiquidacion> DetalleLiquidacion { get; set; }
     }

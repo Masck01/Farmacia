@@ -362,6 +362,10 @@ namespace FarmaciaAvellaneda.Migrations.FarmaciaAvellaneda
                         .HasColumnName("tipo")
                         .HasColumnType("tinyint");
 
+                    b.Property<int?>("Unidad")
+                        .HasColumnName("unidad")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("Concepto");

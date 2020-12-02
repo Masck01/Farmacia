@@ -12,11 +12,12 @@ namespace FarmaciaAvellaneda.ViewModels
         public string Descripcion { get; set; }
         [Required]
         public Tipos Tipo { get; set; }
-        [Required]
         [DataType(DataType.Currency)]
         public double Monto { get; set; }
         [Required]
         public bool Exento { get; set; }
+        [Required]
+        public int Unidad { get; set; }
     }
     public enum Tipos
     {

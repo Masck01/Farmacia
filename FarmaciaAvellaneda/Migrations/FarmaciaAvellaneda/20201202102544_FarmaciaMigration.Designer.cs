@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FarmaciaAvellaneda.Migrations.FarmaciaAvellaneda
 {
     [DbContext(typeof(FarmaciaAvellanedaContext))]
-    [Migration("20201122222921_FarmaciaMigration")]
+    [Migration("20201202102544_FarmaciaMigration")]
     partial class FarmaciaMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -363,6 +363,10 @@ namespace FarmaciaAvellaneda.Migrations.FarmaciaAvellaneda
                     b.Property<byte?>("Tipo")
                         .HasColumnName("tipo")
                         .HasColumnType("tinyint");
+
+                    b.Property<int?>("Unidad")
+                        .HasColumnName("unidad")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
