@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FarmaciaAvellaneda.Data;
 using FarmaciaAvellaneda.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FarmaciaAvellaneda.Controllers
 {
+    [Authorize]
     public class UserRolesController : Controller
     {
         private readonly FarmaciaAvellanedaContext _context;

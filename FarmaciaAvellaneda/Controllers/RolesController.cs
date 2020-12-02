@@ -9,9 +9,11 @@ using FarmaciaAvellaneda.Models;
 using FarmaciaAvellaneda.Data;
 using Microsoft.AspNetCore.Identity;
 using FarmaciaAvellaneda.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FarmaciaAvellaneda.Controllers
 {
+    [Authorize]
     public class RolesController : Controller
     {
         private readonly FarmaciaAvellanedaContext _context;

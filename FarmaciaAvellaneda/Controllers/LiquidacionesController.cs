@@ -9,6 +9,7 @@ using FarmaciaAvellaneda.Data;
 using FarmaciaAvellaneda.Models;
 using FarmaciaAvellaneda.ViewModels;
 using FarmaciaAvellaneda.Services;
+using Rotativa.AspNetCore;
 
 namespace FarmaciaAvellaneda.Controllers
 {
@@ -181,6 +182,37 @@ namespace FarmaciaAvellaneda.Controllers
             _context.Liquidacion.Remove(liquidacion);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> IndexToPdf(int? id)
+        {
+            List<string> detalles = new List<string> { "Vendedor", "Jubilacion", "OSDE" };
+            LiquidacionViewModel model = new LiquidacionViewModel
+            {
+                Empresa = (await _users.ListOfAsync<Empresa>()).FirstOrDefault(),
+                Empleado = await _context.Empleado.Include(l => l.CajaAhorro).FirstOrDefaultAsync(m => m.Id == id),
+                Concepto = (await _users.ListOfAsync<Concepto>()).Find(c =>
+                {
+
+                    Func<Task<string>> myfunc = async () =>
+                    {
+                        string UserId = (await _users.ListOfAsync<Empleado>()).Find(m => m.Id == id).UserId;
+                        List<string> names = await _users.GetUserInRolesAsync(UserId);
+                        return String.Join("", names);
+
+                    };
+                    //string UserId = (await _users.ListOfAsync<Empleado>()).Find(m => m.Id == 2).UserId;
+                    //List<string> names = await _users.GetUserInRolesAsync(UserId);
+                    return c.Descripcion.Contains(myfunc().Result);
+                }),
+                Liquidacion = (await _users.ListOfAsync<Liquidacion>()).FirstOrDefault(l => l.EmpleadoId == id),
+                Conceptos = (await _users.ListOfAsync<Concepto>()).Where(c => detalles.Any(d => c.Descripcion.Contains(d))).ToList()
+
+            };
+            return new ViewAsPdf("ImpresionLiquidacion", model)
+            {
+
+            };
         }
 
         private bool LiquidacionExists(int id)

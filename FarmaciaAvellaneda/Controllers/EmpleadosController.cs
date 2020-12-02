@@ -11,9 +11,11 @@ using FarmaciaAvellaneda.ViewModels;
 using FarmaciaAvellaneda.Services;
 using Microsoft.Data.SqlClient;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FarmaciaAvellaneda.Controllers
 {
+    [Authorize]
     public class EmpleadosController : Controller
     {
         private readonly FarmaciaAvellanedaContext _context;

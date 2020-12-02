@@ -10,52 +10,6 @@
     double deduccion;
     double no_remunerar = 0;
 }
-
-@*<form asp-action="Create">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <div class="form-group">
-            <label asp-for="@Model.Liquidacion.FechaDesde" class="control-label"></label>
-            <input asp-for="@Model.Liquidacion.FechaDesde" class="form-control" />
-            <span asp-validation-for="@Model.Liquidacion.FechaDesde" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="@Model.Liquidacion.FechaHasta" class="control-label"></label>
-            <input asp-for="@Model.Liquidacion.FechaHasta" class="form-control" />
-            <span asp-validation-for="@Model.Liquidacion.FechaHasta" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="@Model.Liquidacion.SalarioNeto" class="control-label"></label>
-            <input asp-for="@Model.Liquidacion.SalarioNeto" class="form-control" />
-            <span asp-validation-for="@Model.Liquidacion.SalarioNeto" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="@Model.Liquidacion.PeriodoLiquidacion" class="control-label"></label>
-            <input asp-for="@Model.Liquidacion.PeriodoLiquidacion" class="form-control" />
-            <span asp-validation-for="@Model.Liquidacion.PeriodoLiquidacion" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="@Model.Liquidacion.Estado" class="control-label"></label>
-            <input asp-for="@Model.Liquidacion.Estado" class="form-control" />
-            <span asp-validation-for="@Model.Liquidacion.Estado" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="@Model.Liquidacion.TotalRemunerado" class="control-label"></label>
-            <input asp-for="@Model.Liquidacion.TotalRemunerado" class="form-control" />
-            <span asp-validation-for="@Model.Liquidacion.TotalRemunerado" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="@Model.Liquidacion.TotalDeduccion" class="control-label"></label>
-            <input asp-for="@Model.Liquidacion.TotalDeduccion" class="form-control" />
-            <span asp-validation-for="@Model.Liquidacion.TotalDeduccion" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="@Model.Liquidacion.EmpleadoId" class="control-label"></label>
-            <select asp-for="@Model.Liquidacion.EmpleadoId" class="form-control" asp-items="ViewBag.EmpleadoId"></select>
-        </div>
-        <div class="form-group">
-            <input type="submit" value="Crear" class="mt-4 w-50 btn btn-primary" />
-        </div>
-    </form>*@
 <div class="container">
     <div class="d-flex flex-row">
 
@@ -343,8 +297,9 @@
     </div>
 </div>
 
-<div>
-    <a class="btn btn-danger btn-outline-dark mb-4" asp-action="Index">Back to List</a>
+<div class="d-flex justify-content-lg-between">
+    <a class="btn btn-danger btn-outline-dark mb-4" asp-action="Index">Volver</a>
+    <a class="btn btn-success btn-outline-secondary mb-4 text-white" asp-action="IndexToPdf" asp-route-id="@Model.Empleado.Id">Imprimir</a>
 </div>
 
 @section Scripts {
