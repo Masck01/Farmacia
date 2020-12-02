@@ -95,7 +95,7 @@ namespace FarmaciaAvellaneda.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Descripcion,Tipo,Monto")] Concepto concepto)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Descripcion,Tipo,Monto,Unidad")] Concepto concepto)
         {
             if (id != concepto.Id)
             {

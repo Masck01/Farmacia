@@ -7,6 +7,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     DateTimeFormatInfo info = CultureInfo.GetCultureInfo("es-AR").DateTimeFormat;
     int n_liquidacion = 0;
+    double deduccion;
+    double no_remunerar = 0;
 }
 
 @*<form asp-action="Create">
@@ -214,23 +216,31 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>
-                        @Model.Concepto.Id
-                    </td>
-                    <td>
-                        @Model.Concepto.Descripcion
-                    </td>
-                    <td>
-
-                    </td>
-                    <td>
-                        @Model.Concepto.Monto
-                    </td>
-                    <td>
-                        Default
-                    </td>
-                </tr>
+                @foreach (var concepto in Model.Conceptos)
+                {
+                    <tr>
+                        <td>
+                            @concepto.Id
+                        </td>
+                        <td>
+                            @concepto.Descripcion
+                        </td>
+                        <td>
+                            @concepto.Unidad
+                        </td>
+                        <td>
+                            @concepto.Monto
+                        </td>
+                        <td>
+                            @{
+                                deduccion = Model.Concepto.Monto.Value * (concepto.Unidad.Value) / 100;
+                                no_remunerar += deduccion;
+                            }
+                            @if (concepto.Tipo.Value == 0)
+                                @deduccion
+                        </td>
+                    </tr>
+                }
             </tbody>
         </table>
     </div>
@@ -267,10 +277,14 @@
             </thead>
             <tbody>
                 <tr>
+                    <td>
+                        @Model.Empresa.Direccion
+                    </td>
+                    <td>
+                        @(Model.Concepto.Monto.Value - no_remunerar)
+                    </td>
                     <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>@no_remunerar</td>
                 </tr>
 
             </tbody>
@@ -283,7 +297,7 @@
             </h5>
             <div class="card-body">
                 <p class="card-text text-center text-dark">
-                    Card content
+                    @Model.Empleado.CajaAhorro.Banco
                 </p>
             </div>
         </div>
@@ -293,7 +307,7 @@
             </h5>
             <div class="card-body">
                 <p class="card-text text-center text-dark">
-                    Card content
+                    @Model.Empleado.CajaAhorro.Cuenta
                 </p>
             </div>
         </div>
@@ -303,7 +317,7 @@
             </h5>
             <div class="card-body">
                 <p class="card-text text-center text-dark">
-                    Card content
+                    @(Model.Concepto.Monto.Value - no_remunerar)
                 </p>
             </div>
         </div>
@@ -313,17 +327,24 @@
             <h3 class="text-left align-top">
                 Son pesos:
             </h3>
+            <div class="input-group input-group-sm">
+                <input class="form-control" type="text" />
+            </div>
         </div>
         <div class="jumbotron shadow-sm p-2 flex-fill">
             <h3 class="text-right align-bottom">
                 Firma
             </h3>
+            <p class="text-right align-bottom">
+
+                .......................
+            </p>
         </div>
     </div>
 </div>
 
 <div>
-    <a class="btn btn-danger btn-outline-dark" asp-action="Index">Back to List</a>
+    <a class="btn btn-danger btn-outline-dark mb-4" asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

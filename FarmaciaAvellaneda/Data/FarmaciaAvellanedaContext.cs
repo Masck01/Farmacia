@@ -224,6 +224,8 @@ namespace FarmaciaAvellaneda.Data
                 entity.Property(e => e.Monto).HasColumnName("monto");
 
                 entity.Property(e => e.Tipo).HasColumnName("tipo");
+
+                entity.Property(e => e.Unidad).HasColumnName("unidad");
             });
 
             modelBuilder.Entity<DetalleLiquidacion>(entity =>

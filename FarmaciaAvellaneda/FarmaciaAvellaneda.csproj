@@ -72,6 +72,10 @@
     <Compile Remove="Migrations\FarmaciaAvellaneda\20201119044304_SP_Migrations.Designer.cs" />
     <Compile Remove="Migrations\FarmaciaAvellaneda\20201121082245_FarmaciaMigration.cs" />
     <Compile Remove="Migrations\FarmaciaAvellaneda\20201121082245_FarmaciaMigration.Designer.cs" />
+    <Compile Remove="Migrations\FarmaciaAvellaneda\20201122222921_FarmaciaMigration.cs" />
+    <Compile Remove="Migrations\FarmaciaAvellaneda\20201122222921_FarmaciaMigration.Designer.cs" />
+    <Compile Remove="Migrations\FarmaciaAvellaneda\20201202022606_ConceptoMigration.cs" />
+    <Compile Remove="Migrations\FarmaciaAvellaneda\20201202022606_ConceptoMigration.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -112,7 +112,8 @@ namespace FarmaciaAvellaneda.Migrations.FarmaciaAvellaneda
                     descripcion = table.Column<string>(unicode: false, maxLength: 200, nullable: true),
                     tipo = table.Column<byte>(nullable: true),
                     monto = table.Column<double>(nullable: true),
-                    exento = table.Column<bool>(nullable: true)
+                    exento = table.Column<bool>(nullable: true),
+                    unidad = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
