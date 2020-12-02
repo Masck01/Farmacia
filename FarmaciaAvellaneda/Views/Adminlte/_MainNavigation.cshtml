@@ -1,8 +1,8 @@
 ﻿<aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a asp-controller="Home" asp-action="Index" class="brand-link">
-        <img src="~/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">AdminLTE 3</span>
+        <i class="fas fa-first-aid"></i>
+        <span class="brand-text font-weight-light">Fcia Avellaneda Norte</span>
     </a>
 
     <!-- Sidebar -->
@@ -11,50 +11,49 @@
             <div class="os-viewport os-viewport-native-scrollbars-invisible" style="overflow-y: scroll;">
                 <div class="os-content" style="padding: 0px 8px; height: 100%; width: 100%;">
                     <!-- Sidebar user panel (optional) -->
-                    <div class="user-panel">
-                        <nav class="mt-2">
-                            <partial name="_LoginPartial" />
+                    <nav class="user-panel mt-3 pb-3 mb-3">
+                        <partial name="_LoginPartial" />
 
-                        </nav>
-                    </div>
-
-
-                    <!-- Sidebar Menu -->
-                    <nav class="mt-2">
-                        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                            <!-- Add icons to the links using the .nav-icon class
-                            with font-awesome or any other icon font library -->
-                            <partial name="~/Views/Cajas/_Cajas.cshtml" />
-
-                            <li class="nav-item">
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/UI/modals.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Modals &amp; Alerts</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/UI/navbar.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Navbar &amp; Tabs</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/UI/timeline.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Timeline</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/UI/ribbons.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Ribbons</p>
-                                </a>
-                            </li>
-                        </ul>
                     </nav>
-                    <!-- /.sidebar-menu -->
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+
+                        <!-- Sidebar Menu -->
+                        <nav class="user-panel mt-3 pb-3 mb-3">
+                            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                                <!-- Add icons to the links using the .nav-icon class
+                                with font-awesome or any other icon font library -->
+                                <partial name="~/Views/Ventas/_Ventas.cshtml" />
+
+                            </ul>
+                        </nav>
+                        <nav class="user-panel mt-3 pb-3 mb-3">
+                            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                                <!-- Add icons to the links using the .nav-icon class
+                                with font-awesome or any other icon font library -->
+                                <partial name="~/Views/Compras/_Compras.cshtml" />
+
+                            </ul>
+                        </nav>
+                        <nav class="user-panel mt-3 pb-3 mb-3">
+                            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                                <!-- Add icons to the links using the .nav-icon class
+                                with font-awesome or any other icon font library -->
+                                <partial name="~/Views/Cajas/_Cajas.cshtml" />
+
+                            </ul>
+                        </nav>
+                        <nav class="user-panel mt-3 pb-3 mb-3">
+                            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                                <!-- Add icons to the links using the .nav-icon class
+                                with font-awesome or any other icon font library -->
+                                <partial name="~/Views/Adminlte/_Administration.cshtml" />
+
+                            </ul>
+                        </nav>
+                        <!-- /.sidebar-menu -->
+                    }
                 </div>
             </div>
         </div><div class="os-scrollbar os-scrollbar-horizontal os-scrollbar-unusable os-scrollbar-auto-hidden"><div class="os-scrollbar-track"><div class="os-scrollbar-handle" style="width: 100%; transform: translate(0px, 0px);"></div></div></div><div class="os-scrollbar os-scrollbar-vertical os-scrollbar-auto-hidden"><div class="os-scrollbar-track"><div class="os-scrollbar-handle" style="height: 35.5326%; transform: translate(0px, 122.017px);"></div></div></div><div class="os-scrollbar-corner"></div>

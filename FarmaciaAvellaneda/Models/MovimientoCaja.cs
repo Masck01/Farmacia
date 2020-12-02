@@ -5,7 +5,7 @@ namespace FarmaciaAvellaneda.Models
 {
     public partial class MovimientoCaja
     {
-        public int IdMovimientoCaja { get; set; }
+        public int Id { get; set; }
         public string Descripcion { get; set; }
         public int CajaId { get; set; }
         public int CompraId { get; set; }

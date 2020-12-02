@@ -1,0 +1,107 @@
+﻿@*@model FarmaciaAvellaneda.Models.Empleado*@
+@using FarmaciaAvellaneda.ViewModels
+@model FarmaciaAvellaneda.ViewModels.EmpleadoViewModel
+
+@{
+    ViewData["Title"] = "Nuevo Empleado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container d-flex flex-column bg-gradient-cyan text-gray-dark mt-4 mb-4 rounded shadow">
+
+    <h1 class="d-flex p-2 justify-content-center">Crear</h1>
+
+    <h4>Empleado</h4>
+    <hr />
+    <div class="d-flex flex-column flex-grow-1 p-4">
+        <div>
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="d-flex justify-content-around">
+
+                    <div class="form-group">
+                        <label asp-for="Apellido" class="control-label"></label>
+                        <input asp-for="Apellido" class="form-control" />
+                        <span asp-validation-for="Apellido" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Nombre" class="control-label"></label>
+                        <input asp-for="Nombre" class="form-control" />
+                        <span asp-validation-for="Nombre" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Domicilio" class="control-label"></label>
+                        <input asp-for="Domicilio" class="form-control" />
+                        <span asp-validation-for="Domicilio" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-around">
+                    <div class="form-group">
+                        <label asp-for="Cuit" class="control-label"></label>
+                        <input asp-for="Cuit" class="form-control" />
+                        <span asp-validation-for="Cuit" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Celular" class="control-label"></label>
+                        <input asp-for="Celular" class="form-control" />
+                        <span asp-validation-for="Celular" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Telefono" class="control-label"></label>
+                        <input asp-for="Telefono" class="form-control" />
+                        <span asp-validation-for="Telefono" class="text-danger"></span>
+                    </div>
+
+                </div>
+                <div class="d-flex justify-content-around">
+                    <div class="form-group">
+                        <label asp-for="CBU" class="control-label"></label>
+                        <input asp-for="CBU" class="form-control" />
+                        <span asp-validation-for="CBU" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Cuenta" class="control-label"></label>
+                        <input asp-for="Cuenta" class="form-control" />
+                        <span asp-validation-for="Cuenta" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Banco" class="control-label"></label>
+                        <input asp-for="Banco" class="form-control" />
+                        <span asp-validation-for="Banco" class="text-danger"></span>
+                    </div>
+
+                </div>
+                <div class="d-flex justify-content-around">
+
+                    <div class="form-group">
+                        <label asp-for="Email" class="control-label"></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Password" class="control-label"></label>
+                        <input asp-for="Password" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Estado" class="control-label"></label>
+                        <select asp-for="Estado" class="form-control" asp-items="Html.GetEnumSelectList<Estados>()"></select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="roles" class="control-label"></label>
+                        <select asp-for="roles" class="form-control" asp-items="ViewBag.roles"></select>
+                    </div>
+                </div>
+                <div class="form-group d-flex justify-content-center">
+                    <input type="submit" value="Crear Empleado" class="mt-4 w-50 btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="mb-4">
+        <a class="btn btn-outline-dark btn-danger" asp-action="Index">Volver</a>
+    </div>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,327 @@
+﻿@using System.Globalization
+@model FarmaciaAvellaneda.ViewModels.LiquidacionViewModel
+@{
+    Layout = null;
+    DateTimeFormatInfo info = CultureInfo.GetCultureInfo("es-AR").DateTimeFormat;
+    int n_liquidacion = 0;
+    double deduccion;
+    double no_remunerar = 0;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+
+    <title>Farmacia Avellaneda Norte</title>
+    <link rel="stylesheet" href="~/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="~/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <link rel="stylesheet" href="~/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <link rel="stylesheet" href="~/plugins/jqvmap/jqvmap.min.css">
+    <link rel="stylesheet" href="~/css/adminlte.min.css">
+    <link rel="stylesheet" href="~/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <link rel="stylesheet" href="~/plugins/daterangepicker/daterangepicker.css">
+
+</head>
+<body class=" layout-fixed sidebar-mini">
+    <div class="wrapper">
+        <div class="content-wrapper d-flex clearfix">
+            <div class="container d-flex flex-column bg-gradient-cyan text-gray-dark mt-4 mb-4 rounded shadow">
+                <div class="container d-flex flex-column bg-gradient-cyan text-gray-dark mt-4 mb-4 rounded shadow">
+
+                    <div class="container">
+                        <div class="d-flex flex-row">
+
+                            <div class="text-center flex-fill">
+                                <i class="fas fa-first-aid fa-10x fa-align-center"></i>
+
+                            </div>
+                            <div class="flex-fill">
+
+                                <address class="blockquote pt-2 pl-2 text-right">
+                                    <strong>@Model.Empresa.Nombre</strong><br /> @Model.Empresa.Direccion, CP 4000<br /> @Model.Empresa.Cuit<br /> <abbr title="Phone">P:</abbr> (381) 456-7890
+                                </address>
+
+                            </div>
+                        </div>
+
+                        <div class="d-flex flex-row">
+                            <div class="card flex-fill">
+                                <h5 class="card-header text-center bg-dark text-light">
+                                    Apellido y Nombre
+                                </h5>
+                                <div class="card-body">
+                                    <p class="card-text text-center text-dark">
+                                        @Model.Empleado.Apellido, @Model.Empleado.Nombre
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="card flex-fill">
+                                <h5 class="card-header text-center bg-dark text-light">
+                                    Legajo
+                                </h5>
+                                <div class="card-body">
+                                    <p class="card-text text-center text-dark">
+                                        @Model.Empleado.Id
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="card flex-fill">
+                                <h5 class="card-header text-center bg-dark text-light">
+                                    C.U.I.L.
+                                </h5>
+                                <div class="card-body">
+                                    <p class="card-text text-center text-dark">
+                                        @Model.Empleado.Cuit
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-row">
+                            <div class="card flex-fill">
+                                <h5 class="card-header text-center bg-dark text-light">
+                                    Categoria
+                                </h5>
+                                <div class="card-body">
+                                    <p class="card-text text-center text-dark">
+                                        <td i-role="@Model.Empleado.UserId"></td>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="card flex-fill">
+                                <h5 class="card-header text-center bg-dark text-light">
+                                    Mes Liquidacion
+                                </h5>
+                                <div class="card-body">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-calendar-minus"></i>
+                                            </span>
+                                        </div>
+                                        <select class="form-control" asp-items="@new SelectList(info.MonthNames)"></select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card flex-fill">
+                                <h5 class="card-header text-center bg-dark text-light">
+                                    Fecha
+                                </h5>
+                                <div class="card-body">
+                                    <div class="input-group">
+                                        <input type="date" class="form-control" value="DateTime.Today.ToShortDateString()" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-row">
+                            <div class="card flex-fill">
+                                <h5 class="card-header text-center bg-dark text-light">
+                                    N° Liquidacion
+                                </h5>
+                                <div class="card-body">
+                                    <p class="card-text text-center text-dark">
+                                        @if (Model.Liquidacion != null)
+                                        {
+                                            n_liquidacion = Model.Liquidacion.Id++;
+                                        }
+                                        else
+                                        {
+
+                                            n_liquidacion++;
+                                        }
+                                        @n_liquidacion
+                                    </p>
+
+                                </div>
+                            </div>
+                            <div class="card flex-fill">
+                                <h5 class="card-header text-center bg-dark text-light">
+                                    Sueldo
+                                </h5>
+                                <div class="card-body">
+                                    <p class="card-text text-center text-dark">
+                                        @Model.Concepto.Monto
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="card flex-fill">
+                                <h5 class="card-header text-center bg-dark text-light">
+                                    Duplicado
+                                </h5>
+                                <div class="card-body">
+                                    <p class="card-text text-center text-dark">
+                                        <input type="checkbox" />
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-row bg-gradient-light mb-1">
+                            <table class="table table-responsive-sm table-responsive-md table-hover">
+                                <thead class="bg-dark">
+                                    <tr>
+                                        <th>
+                                            <h5>
+
+                                                Código
+                                            </h5>
+                                        </th>
+                                        <th>
+                                            <h5>
+                                                Detalle
+                                            </h5>
+                                        </th>
+                                        <th>
+                                            <h5>
+                                                Unidad
+                                            </h5>
+                                        </th>
+                                        <th>
+                                            <h5>
+                                                Haberes
+                                            </h5>
+                                        </th>
+                                        <th>
+                                            <h5>
+                                                Deducciones
+                                            </h5>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var concepto in Model.Conceptos)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @concepto.Id
+                                            </td>
+                                            <td>
+                                                @concepto.Descripcion
+                                            </td>
+                                            <td>
+                                                @concepto.Unidad
+                                            </td>
+                                            <td>
+                                                @concepto.Monto
+                                            </td>
+                                            <td>
+                                                @{
+                                                    deduccion = Model.Concepto.Monto.Value * (concepto.Unidad.Value) / 100;
+                                                    no_remunerar += deduccion;
+                                                }
+                                                @if (concepto.Tipo.Value == 0)
+                                                    @deduccion
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="d-flex flex-row bg-gradient-light mb-1">
+                            <table class="table table-responsive-sm table-responsive-md table-hover">
+                                <thead class="bg-dark">
+                                    <tr>
+                                        <th>
+                                            <h5>
+                                                Lugar de pago
+
+                                            </h5>
+                                        </th>
+                                        <th>
+                                            <h5>
+                                                Remunerar
+
+                                            </h5>
+                                        </th>
+                                        <th>
+                                            <h5>
+
+                                                No Remunerar
+                                            </h5>
+
+                                        </th>
+                                        <th>
+                                            <h5>
+
+                                                Total Deducciones
+                                            </h5>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            @Model.Empresa.Direccion
+                                        </td>
+                                        <td>
+                                            @(Model.Concepto.Monto.Value - no_remunerar)
+                                        </td>
+                                        <td></td>
+                                        <td>@no_remunerar</td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="d-flex flex-row">
+                            <div class="card flex-fill">
+                                <h5 class="card-header text-center bg-dark text-light">
+                                    Banco de Acreditación
+                                </h5>
+                                <div class="card-body">
+                                    <p class="card-text text-center text-dark">
+                                        @Model.Empleado.CajaAhorro.Banco
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="card flex-fill">
+                                <h5 class="card-header text-center bg-dark text-light">
+                                    Cuenta
+                                </h5>
+                                <div class="card-body">
+                                    <p class="card-text text-center text-dark">
+                                        @Model.Empleado.CajaAhorro.Cuenta
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="card flex-fill">
+                                <h5 class="card-header text-center bg-dark text-light">
+                                    Total Neto
+                                </h5>
+                                <div class="card-body">
+                                    <p class="card-text text-center text-dark">
+                                        @(Model.Concepto.Monto.Value - no_remunerar)
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-row">
+                            <div class="jumbotron shadow-sm p-2 flex-fill">
+                                <h3 class="text-left align-top">
+                                    Son pesos:
+                                </h3>
+                                <div class="input-group input-group-sm">
+                                    <input class="form-control" type="text" />
+                                </div>
+                            </div>
+                            <div class="jumbotron shadow-sm p-2 flex-fill">
+                                <h3 class="text-right align-bottom">
+                                    Firma
+                                </h3>
+                                <p class="text-right align-bottom">
+
+                                    .......................
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

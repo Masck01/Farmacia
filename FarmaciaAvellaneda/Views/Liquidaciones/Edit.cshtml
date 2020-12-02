@@ -1,0 +1,70 @@
+﻿@model FarmaciaAvellaneda.Models.Liquidacion
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>Liquidacion</h4>
+<hr />
+<div class="d-flex flex-column flex-grow-1 p-2">
+    <div>
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="FechaDesde" class="control-label"></label>
+                <input asp-for="FechaDesde" class="form-control" />
+                <span asp-validation-for="FechaDesde" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FechaHasta" class="control-label"></label>
+                <input asp-for="FechaHasta" class="form-control" />
+                <span asp-validation-for="FechaHasta" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SalarioNeto" class="control-label"></label>
+                <input asp-for="SalarioNeto" class="form-control" />
+                <span asp-validation-for="SalarioNeto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PeriodoLiquidacion" class="control-label"></label>
+                <input asp-for="PeriodoLiquidacion" class="form-control" />
+                <span asp-validation-for="PeriodoLiquidacion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Estado" class="control-label"></label>
+                <input asp-for="Estado" class="form-control" />
+                <span asp-validation-for="Estado" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TotalRemunerado" class="control-label"></label>
+                <input asp-for="TotalRemunerado" class="form-control" />
+                <span asp-validation-for="TotalRemunerado" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TotalDeduccion" class="control-label"></label>
+                <input asp-for="TotalDeduccion" class="form-control" />
+                <span asp-validation-for="TotalDeduccion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmpleadoId" class="control-label"></label>
+                <select asp-for="EmpleadoId" class="form-control" asp-items="ViewBag.EmpleadoId"></select>
+                <span asp-validation-for="EmpleadoId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a class="btn btn-outline-dark btn-danger mb-4" asp-action="Index">Volver</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,44 @@
+﻿@model FarmaciaAvellaneda.Models.Concepto
+
+@{
+    ViewData["Title"] = "Eliminar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container d-flex flex-column bg-gradient-cyan text-gray-dark mt-4 mb-4 rounded shadow">
+
+    <h1 class="d-flex justify-content-center">Delete</h1>
+
+    <h3>¿Desea eliminar este elemento?</h3>
+    <div class="d-flex flex-column flex-grow-1">
+        <h4>Concepto</h4>
+        <hr />
+        <dl class="p-5 d-flex flex-column bg-white rounded shadow">
+            <dt>
+                @Html.DisplayNameFor(model => model.Descripcion)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Descripcion)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Tipo)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Tipo)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Monto)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Monto)
+            </dd>
+        </dl>
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="Id" />
+            <input type="submit" value="Eliminar" class="btn btn-default btn-outline-danger" />
+        </form>
+    </div>
+    <div>
+        <a class="btn btn-danger btn-outline-dark mb-4" asp-action="Index">Volver</a>
+    </div>
+</div>

@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using FarmaciaAvellaneda.Data;
 using FarmaciaAvellaneda.Models;
-using Microsoft.AspNetCore.Authorization;
 
 namespace FarmaciaAvellaneda.Controllers
 {
-    [Authorize()]
+    [Authorize]
     public class CajasController : Controller
     {
         private readonly FarmaciaAvellanedaContext _context;
@@ -35,7 +35,7 @@ namespace FarmaciaAvellaneda.Controllers
             }
 
             var caja = await _context.Caja
-                .FirstOrDefaultAsync(m => m.IdCaja == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (caja == null)
             {
                 return NotFound();
@@ -55,7 +55,7 @@ namespace FarmaciaAvellaneda.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdCaja,Nombre,Estado,Saldo")] Caja caja)
+        public async Task<IActionResult> Create([Bind("Id,Nombre,Estado,Saldo")] Caja caja)
         {
             if (ModelState.IsValid)
             {
@@ -87,9 +87,9 @@ namespace FarmaciaAvellaneda.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdCaja,Nombre,Estado,Saldo")] Caja caja)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Estado,Saldo")] Caja caja)
         {
-            if (id != caja.IdCaja)
+            if (id != caja.Id)
             {
                 return NotFound();
             }
@@ -103,7 +103,7 @@ namespace FarmaciaAvellaneda.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CajaExists(caja.IdCaja))
+                    if (!CajaExists(caja.Id))
                     {
                         return NotFound();
                     }
@@ -126,7 +126,7 @@ namespace FarmaciaAvellaneda.Controllers
             }
 
             var caja = await _context.Caja
-                .FirstOrDefaultAsync(m => m.IdCaja == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (caja == null)
             {
                 return NotFound();
@@ -148,7 +148,7 @@ namespace FarmaciaAvellaneda.Controllers
 
         private bool CajaExists(int id)
         {
-            return _context.Caja.Any(e => e.IdCaja == id);
+            return _context.Caja.Any(e => e.Id == id);
         }
     }
 }

@@ -9,11 +9,11 @@
 
 <h4>Caja</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="d-flex flex-column flex-grow-1 p-2">
+    <div>
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="IdCaja" />
+            <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <label asp-for="Nombre" class="control-label"></label>
                 <input asp-for="Nombre" class="form-control" />
@@ -37,7 +37,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-outline-dark btn-danger mb-4" asp-action="Index">Volver</a>
 </div>
 
 @section Scripts {

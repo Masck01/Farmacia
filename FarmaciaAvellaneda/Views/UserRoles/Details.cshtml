@@ -1,0 +1,31 @@
+﻿@model FarmaciaAvellaneda.Models.AspNetUserRoles
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>AspNetUserRoles</h4>
+    <hr />
+    <dl class="p-5 d-flex flex-column bg-white rounded shadow">
+        <dt>
+            @Html.DisplayNameFor(model => model.Role)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Role.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.Id)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a class="btn btn-outline-dark btn-danger mb-4" asp-action="Index">Volver</a>
+</div>

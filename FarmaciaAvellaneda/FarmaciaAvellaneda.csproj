@@ -6,18 +6,99 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Data\Migrations\00000000000000_CreateIdentitySchema.cs" />
+    <Compile Remove="Data\Migrations\00000000000000_CreateIdentitySchema.Designer.cs" />
+    <Compile Remove="Data\Migrations\20201114005759_SecondMigration.cs" />
+    <Compile Remove="Data\Migrations\20201114005759_SecondMigration.Designer.cs" />
+    <Compile Remove="Data\Migrations\20201114023746_ThirdMigration.cs" />
+    <Compile Remove="Data\Migrations\20201114023746_ThirdMigration.Designer.cs" />
+    <Compile Remove="Data\Migrations\20201114023850_ThirdMigration.cs" />
+    <Compile Remove="Data\Migrations\20201114023850_ThirdMigration.Designer.cs" />
+    <Compile Remove="Data\Migrations\20201114032132_ThirdMigration.cs" />
+    <Compile Remove="Data\Migrations\20201114032132_ThirdMigration.Designer.cs" />
+    <Compile Remove="Data\Migrations\20201114034534_Roles.cs" />
+    <Compile Remove="Data\Migrations\20201114034534_Roles.Designer.cs" />
+    <Compile Remove="Data\Migrations\20201114035919_Roles.cs" />
+    <Compile Remove="Data\Migrations\20201114035919_Roles.Designer.cs" />
+    <Compile Remove="Data\Migrations\20201114040713_Roles.cs" />
+    <Compile Remove="Data\Migrations\20201114040713_Roles.Designer.cs" />
+    <Compile Remove="Data\Migrations\20201114163749_Roles.cs" />
+    <Compile Remove="Data\Migrations\20201114163749_Roles.Designer.cs" />
+    <Compile Remove="Data\Migrations\20201114164313_AfterRoles.cs" />
+    <Compile Remove="Data\Migrations\20201114164313_AfterRoles.Designer.cs" />
+    <Compile Remove="Data\Migrations\20201114215327_Empleados.cs" />
+    <Compile Remove="Data\Migrations\20201114215327_Empleados.Designer.cs" />
+    <Compile Remove="Data\Migrations\20201114220042_Empleados.cs" />
+    <Compile Remove="Data\Migrations\20201114220042_Empleados.Designer.cs" />
+    <Compile Remove="Data\Migrations\20201114220332_FirstMigration.cs" />
+    <Compile Remove="Data\Migrations\20201114220332_FirstMigration.Designer.cs" />
+    <Compile Remove="Migrations\20201114163914_AfterRoles.cs" />
+    <Compile Remove="Migrations\20201114163914_AfterRoles.Designer.cs" />
+    <Compile Remove="Migrations\20201114215533_Empleados.cs" />
+    <Compile Remove="Migrations\20201114215533_Empleados.Designer.cs" />
+    <Compile Remove="Migrations\20201114220440_FirstMigration.cs" />
+    <Compile Remove="Migrations\20201114220440_FirstMigration.Designer.cs" />
+    <Compile Remove="Migrations\20201114220747_FirstMigration.cs" />
+    <Compile Remove="Migrations\20201114220747_FirstMigration.Designer.cs" />
+    <Compile Remove="Migrations\20201114221036_SecondMigration.cs" />
+    <Compile Remove="Migrations\20201114221036_SecondMigration.Designer.cs" />
+    <Compile Remove="Migrations\20201114221138_SecondMigration.cs" />
+    <Compile Remove="Migrations\20201114221138_SecondMigration.Designer.cs" />
+    <Compile Remove="Migrations\20201114222456_FirstMigration.cs" />
+    <Compile Remove="Migrations\20201114222456_FirstMigration.Designer.cs" />
+    <Compile Remove="Migrations\20201114222930_SecondMigration.cs" />
+    <Compile Remove="Migrations\20201114222930_SecondMigration.Designer.cs" />
+    <Compile Remove="Migrations\20201115001243_SecondMigration.cs" />
+    <Compile Remove="Migrations\20201115001243_SecondMigration.Designer.cs" />
+    <Compile Remove="Migrations\20201116030204_FirstMigration.cs" />
+    <Compile Remove="Migrations\20201116030204_FirstMigration.Designer.cs" />
+    <Compile Remove="Migrations\20201116033613_FarmaciaMigration.cs" />
+    <Compile Remove="Migrations\20201116033613_FarmaciaMigration.Designer.cs" />
+    <Compile Remove="Migrations\20201116033723_FirstMigration.cs" />
+    <Compile Remove="Migrations\20201116033723_FirstMigration.Designer.cs" />
+    <Compile Remove="Migrations\20201116043600_FirstMigration.cs" />
+    <Compile Remove="Migrations\20201116043600_FirstMigration.Designer.cs" />
+    <Compile Remove="Migrations\20201116044653_FarmaciaMigration.cs" />
+    <Compile Remove="Migrations\20201116044653_FarmaciaMigration.Designer.cs" />
+    <Compile Remove="Migrations\FarmaciaAvellaneda\20201116032834_SecondMigration.cs" />
+    <Compile Remove="Migrations\FarmaciaAvellaneda\20201116032834_SecondMigration.Designer.cs" />
+    <Compile Remove="Migrations\FarmaciaAvellaneda\20201116033737_FarmaciaMigration.cs" />
+    <Compile Remove="Migrations\FarmaciaAvellaneda\20201116033737_FarmaciaMigration.Designer.cs" />
+    <Compile Remove="Migrations\FarmaciaAvellaneda\20201116044920_FarmaciaMigration.cs" />
+    <Compile Remove="Migrations\FarmaciaAvellaneda\20201116044920_FarmaciaMigration.Designer.cs" />
+    <Compile Remove="Migrations\FarmaciaAvellaneda\20201119043542_SP_Migrations.cs" />
+    <Compile Remove="Migrations\FarmaciaAvellaneda\20201119043542_SP_Migrations.Designer.cs" />
+    <Compile Remove="Migrations\FarmaciaAvellaneda\20201119044304_SP_Migrations.cs" />
+    <Compile Remove="Migrations\FarmaciaAvellaneda\20201119044304_SP_Migrations.Designer.cs" />
+    <Compile Remove="Migrations\FarmaciaAvellaneda\20201121082245_FarmaciaMigration.cs" />
+    <Compile Remove="Migrations\FarmaciaAvellaneda\20201121082245_FarmaciaMigration.Designer.cs" />
+    <Compile Remove="Migrations\FarmaciaAvellaneda\20201122222921_FarmaciaMigration.cs" />
+    <Compile Remove="Migrations\FarmaciaAvellaneda\20201122222921_FarmaciaMigration.Designer.cs" />
+    <Compile Remove="Migrations\FarmaciaAvellaneda\20201202022606_ConceptoMigration.cs" />
+    <Compile Remove="Migrations\FarmaciaAvellaneda\20201202022606_ConceptoMigration.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.9" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Runtime" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.10" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.9" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.9" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.9">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.10">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.2.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
+    <PackageReference Include="Rotativa.AspNetCore" Version="1.2.0-beta" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Data\Migrations\" />
   </ItemGroup>
 
 </Project>

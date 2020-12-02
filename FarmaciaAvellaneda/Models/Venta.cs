@@ -7,11 +7,11 @@ namespace FarmaciaAvellaneda.Models
     {
         public Venta()
         {
-            LineaDeVenta = new HashSet<LineaDeVenta>();
+            LineaVenta = new HashSet<LineaVenta>();
             MovimientoCaja = new HashSet<MovimientoCaja>();
         }
 
-        public int IdVenta { get; set; }
+        public int Id { get; set; }
         public DateTime? FechaVenta { get; set; }
         public double? Total { get; set; }
         public byte? Estado { get; set; }
@@ -19,7 +19,7 @@ namespace FarmaciaAvellaneda.Models
 
         public virtual Empleado Empleado { get; set; }
         public virtual Pago Pago { get; set; }
-        public virtual ICollection<LineaDeVenta> LineaDeVenta { get; set; }
+        public virtual ICollection<LineaVenta> LineaVenta { get; set; }
         public virtual ICollection<MovimientoCaja> MovimientoCaja { get; set; }
     }
 }

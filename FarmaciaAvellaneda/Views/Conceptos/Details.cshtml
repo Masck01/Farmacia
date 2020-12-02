@@ -1,0 +1,40 @@
+﻿@model FarmaciaAvellaneda.Models.Concepto
+
+@{
+    ViewData["Title"] = "Detalles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container d-flex flex-column bg-gradient-cyan text-gray-dark mt-4 mb-4 rounded shadow">
+
+    <h1 class="d-flex justify-content-center">Especificacion</h1>
+
+    <div class="d-flex flex-column flex-grow-1">
+        <h4>Concepto</h4>
+        <hr />
+        <dl class="p-5 d-flex flex-column bg-white rounded shadow">
+            <dt>
+                @Html.DisplayNameFor(model => model.Descripcion)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Descripcion)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Tipo)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Tipo)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Monto)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Monto)
+            </dd>
+        </dl>
+    </div>
+    <div class="mb-4">
+        <a class="btn btn-danger btn-outline-dark" asp-action="Index">Volver</a>
+        <a class="btn btn-default btn-outline-primary " asp-action="Edit" asp-route-id="@Model.Id">Editar</a>
+    </div>
+</div>

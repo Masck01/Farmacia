@@ -7,16 +7,16 @@ namespace FarmaciaAvellaneda.Models
     {
         public Compra()
         {
-            LineaDeCompra = new HashSet<LineaDeCompra>();
+            LineaCompra = new HashSet<LineaCompra>();
             MovimientoCaja = new HashSet<MovimientoCaja>();
             Proveedor = new HashSet<Proveedor>();
         }
 
-        public int IdCompra { get; set; }
+        public int Id { get; set; }
         public DateTime? Fecha { get; set; }
         public double? Total { get; set; }
 
-        public virtual ICollection<LineaDeCompra> LineaDeCompra { get; set; }
+        public virtual ICollection<LineaCompra> LineaCompra { get; set; }
         public virtual ICollection<MovimientoCaja> MovimientoCaja { get; set; }
         public virtual ICollection<Proveedor> Proveedor { get; set; }
     }

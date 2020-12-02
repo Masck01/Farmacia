@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using FarmaciaAvellaneda.Models;
+using FarmaciaAvellaneda.Services;
 
 namespace FarmaciaAvellaneda
 {
@@ -34,8 +35,9 @@ namespace FarmaciaAvellaneda
             services.AddDbContext<FarmaciaAvellanedaContext>(opt =>
                 opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
             );
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddTransient<UsersServices>();
             services.AddControllersWithViews();
             services.AddRazorPages();
         }
@@ -70,6 +72,7 @@ namespace FarmaciaAvellaneda
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+            Rotativa.AspNetCore.RotativaConfiguration.Setup(env.WebRootPath, "../Rotativa");
         }
     }
 }

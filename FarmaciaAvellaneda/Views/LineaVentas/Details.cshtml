@@ -1,0 +1,43 @@
+﻿@model FarmaciaAvellaneda.Models.LineaVenta
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>LineaVenta</h4>
+    <hr />
+    <dl class="p-5 d-flex flex-column bg-white rounded shadow">
+        <dt>
+            @Html.DisplayNameFor(model => model.Subtotal)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Subtotal)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Cantidad)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Cantidad)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Producto)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Producto.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Venta)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Venta.Id)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a class="btn btn-default btn-outline-primary " asp-action="Edit" asp-route-id="@Model.Id">Editar</a> |
+    <a class="btn btn-outline-dark btn-danger mb-4" asp-action="Index">Volver</a>
+</div>

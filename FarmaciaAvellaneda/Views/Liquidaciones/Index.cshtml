@@ -1,0 +1,68 @@
+﻿@*@model IEnumerable<FarmaciaAvellaneda.Models.Liquidacion>*@
+@model IEnumerable<FarmaciaAvellaneda.Models.Empleado>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="display-3 p-3 d-flex justify-content-center">Crear Nueva Liquidacion</h2>
+<div class="table-responsive bg-gradient-white shadow-sm rounded">
+
+    <table class="table table-hover p-2">
+        <thead class="thead-dark">
+            <tr>
+                <th>
+                    Seleccionar Empleado
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Apellido)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Nombre)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cuit)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Estado)
+                </th>
+                <th>
+                    Categoria
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var empleado in Model)
+            {
+                <tr>
+                    <td>
+
+                        <a class="btn btn-info btn-outline-light" asp-action="Create" asp-route-id="@empleado.Id">Liquidar</a>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => empleado.Apellido)
+                    </td>
+                    <td>
+                        @Html.DisplayNameFor(model => empleado.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => empleado.Cuit)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => empleado.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => empleado.Estado)
+                    </td>
+                    <td i-role="@empleado.UserId">
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

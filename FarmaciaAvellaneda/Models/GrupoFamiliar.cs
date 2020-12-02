@@ -5,7 +5,7 @@ namespace FarmaciaAvellaneda.Models
 {
     public partial class GrupoFamiliar
     {
-        public int IdGrupofamiliar { get; set; }
+        public int Id { get; set; }
         public int? Dni { get; set; }
         public string Apellido { get; set; }
         public string Nombre { get; set; }

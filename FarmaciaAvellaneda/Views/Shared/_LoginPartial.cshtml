@@ -12,25 +12,16 @@
             </a>
         </li>
         <li class="nav-item">
-            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-
-                <button type="submit" class="nav-link btn btn-link text-white">
+            <form class="form-inline btn nav-link text-left" asp-area="Identity" id='form' asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <a class="text-white" onclick="document.getElementById('form').submit()">
                     <i class="fas fa-sign-out-alt"></i>
                     <p>Logout</p>
-                </button>
-
-
+                </a>
             </form>
         </li>
     }
     else
     {
-        <li class="nav-item">
-            <a class="nav-link text-light" asp-area="Identity" asp-page="/Account/Register">
-                <i class="fas fa-user-alt"></i>
-                <p>Register</p>
-            </a>
-        </li>
         <li class="nav-item">
             <a class="nav-link text-light" asp-area="Identity" asp-page="/Account/Login">
                 <i class="fas fa-user-check"></i>

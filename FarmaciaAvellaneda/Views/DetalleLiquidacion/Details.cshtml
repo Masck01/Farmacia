@@ -1,0 +1,43 @@
+﻿@model FarmaciaAvellaneda.Models.DetalleLiquidacion
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>DetalleLiquidacion</h4>
+    <hr />
+    <dl class="p-5 d-flex flex-column bg-white rounded shadow">
+        <dt>
+            @Html.DisplayNameFor(model => model.Unidad)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Unidad)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Haber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Haber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Concepto)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Concepto.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Liquidacion)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Liquidacion.Id)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a class="btn btn-default btn-outline-primary " asp-action="Edit" asp-route-id="@Model.Id">Editar</a> |
+    <a class="btn btn-outline-dark btn-danger mb-4" asp-action="Index">Volver</a>
+</div>

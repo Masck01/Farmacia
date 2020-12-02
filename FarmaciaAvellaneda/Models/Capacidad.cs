@@ -5,7 +5,7 @@ namespace FarmaciaAvellaneda.Models
 {
     public partial class Capacidad
     {
-        public int IdCapacidad { get; set; }
+        public int Id { get; set; }
         public int? Cantidad { get; set; }
         public byte? Estado { get; set; }
         public int ProductoId { get; set; }
