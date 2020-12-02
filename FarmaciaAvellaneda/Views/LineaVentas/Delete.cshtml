@@ -11,29 +11,29 @@
 <div>
     <h4>LineaVenta</h4>
     <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
+    <dl class="p-5 d-flex flex-column bg-white rounded shadow">
+        <dt>
             @Html.DisplayNameFor(model => model.Subtotal)
         </dt>
-        <dd class = "col-sm-10">
+        <dd>
             @Html.DisplayFor(model => model.Subtotal)
         </dd>
-        <dt class = "col-sm-2">
+        <dt>
             @Html.DisplayNameFor(model => model.Cantidad)
         </dt>
-        <dd class = "col-sm-10">
+        <dd>
             @Html.DisplayFor(model => model.Cantidad)
         </dd>
-        <dt class = "col-sm-2">
+        <dt>
             @Html.DisplayNameFor(model => model.Producto)
         </dt>
-        <dd class = "col-sm-10">
+        <dd>
             @Html.DisplayFor(model => model.Producto.Id)
         </dd class>
-        <dt class = "col-sm-2">
+        <dt>
             @Html.DisplayNameFor(model => model.Venta)
         </dt>
-        <dd class = "col-sm-10">
+        <dd>
             @Html.DisplayFor(model => model.Venta.Id)
         </dd class>
     </dl>
@@ -41,6 +41,6 @@
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <a class="btn btn-outline-dark btn-danger mb-4" asp-action="Index">Volver</a>
     </form>
 </div>

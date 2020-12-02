@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
 
-    <title>Adminlte 3 | Starter</title>
+    <title>Farmacia Avellaneda Norte</title>
     <partial name="~/Views/Adminlte/_Styles.cshtml" />
 
 </head>
@@ -14,11 +14,14 @@
     <div class="wrapper">
         <partial name="~/Views/Adminlte/_TopNavigation.cshtml" />
         <partial name="~/Views/Adminlte/_MainNavigation.cshtml" />
-        <div class="content-wrapper">
-            <div class="content">
-                <div class="container-fluid">
-                    @RenderBody()
-                </div>
+        <div class="content-wrapper d-flex" style="background-image: linear-gradient(to right,#e3f2fd,#0e6cc4)">
+            <div class="container d-flex flex-column bg-gradient-cyan text-gray-dark mt-4 mb-4 rounded shadow">
+
+                @*<div class="content">*@
+                @*<div class="container">*@
+                @RenderBody()
+                @*</div>*@
+                @*</div>*@
             </div>
         </div>
         <aside class="control-sidebar control-sidebar-dark">

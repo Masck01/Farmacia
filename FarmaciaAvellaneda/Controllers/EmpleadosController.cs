@@ -29,8 +29,9 @@ namespace FarmaciaAvellaneda.Controllers
         // GET: Empleados
         public async Task<IActionResult> Index()
         {
-            var farmaciaAvellanedaContext = _context.Empleado.Include(e => e.User);
-            return View(await farmaciaAvellanedaContext.ToListAsync());
+            
+            //var farmaciaAvellanedaContext = _context.Empleado.Include(e => e.User);
+            return View(await _users.ListOfAsync<Empleado>());
         }
 
         // GET: Empleados/Details/5

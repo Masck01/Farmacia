@@ -7,23 +7,30 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FarmaciaAvellaneda.Data;
 using FarmaciaAvellaneda.Models;
+using FarmaciaAvellaneda.ViewModels;
+using FarmaciaAvellaneda.Services;
 
 namespace FarmaciaAvellaneda.Controllers
 {
     public class LiquidacionesController : Controller
     {
         private readonly FarmaciaAvellanedaContext _context;
+        private readonly UsersServices _users;
 
-        public LiquidacionesController(FarmaciaAvellanedaContext context)
+        public LiquidacionesController(FarmaciaAvellanedaContext context,
+            UsersServices users)
         {
+            _users = users;
             _context = context;
         }
 
         // GET: Liquidaciones
         public async Task<IActionResult> Index()
         {
-            var farmaciaAvellanedaContext = _context.Liquidacion.Include(l => l.Empleado);
-            return View(await farmaciaAvellanedaContext.ToListAsync());
+            //LiquidacionViewModel model = new LiquidacionViewModel();
+            //var farmaciaAvellanedaContext = _context.Liquidacion.Include(l => l.Empleado);
+            //model.Empresa = _context.Empresa.First();
+            return View(await _users.ListOfAsync<Empleado>());
         }
 
         // GET: Liquidaciones/Details/5
@@ -46,10 +53,31 @@ namespace FarmaciaAvellaneda.Controllers
         }
 
         // GET: Liquidaciones/Create
-        public IActionResult Create()
+        public async Task<IActionResult> CreateAsync(int? id)
         {
-            ViewData["EmpleadoId"] = new SelectList(_context.Empleado, "Id", "UserId");
-            return View();
+            LiquidacionViewModel model = new LiquidacionViewModel
+            {
+                Empresa = (await _users.ListOfAsync<Empresa>()).FirstOrDefault(),
+                Empleado = (await _users.ListOfAsync<Empleado>()).Find(m => m.Id == id),
+                Concepto = (await _users.ListOfAsync<Concepto>()).Find(c =>
+                {
+
+                    Func<Task<string>> myfunc = async () =>
+                    {
+                        string UserId = (await _users.ListOfAsync<Empleado>()).Find(m => m.Id == id).UserId;
+                        List<string> names = await _users.GetUserInRolesAsync(UserId);
+                        return String.Join("", names);
+
+                    };
+                    //string UserId = (await _users.ListOfAsync<Empleado>()).Find(m => m.Id == 2).UserId;
+                    //List<string> names = await _users.GetUserInRolesAsync(UserId);
+                    return c.Descripcion.Contains(myfunc().Result);
+                }),
+                Liquidacion = (await _users.ListOfAsync<Liquidacion>()).FirstOrDefault(l => l.EmpleadoId == id)
+            };
+
+            //ViewData["EmpleadoId"] = new SelectList(_context.Empleado, "Id", "UserId");
+            return View(model);
         }
 
         // POST: Liquidaciones/Create
