@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using FarmaciaAvellaneda.ViewModels;
 using FarmaciaAvellaneda.Models;
 using FarmaciaAvellaneda.Data;
@@ -95,12 +96,24 @@ namespace FarmaciaAvellaneda.Services
             IQueryable<IdentityRole> roles = _roleManager.Roles;
             foreach (var rol in roles.ToList())
             {
-                if(await _userManager.IsInRoleAsync(user, rol.Name))
+                if (await _userManager.IsInRoleAsync(user, rol.Name))
                 {
                     names.Add(rol.Name);
                 }
             }
             return names;
+        }
+
+        public async Task<List<T>> ListOfAsync<T>() where T : class
+        {
+            List<T> list = await _context.Set<T>().ToListAsync();
+            return list;
+        }
+
+        public async Task<int> InserAsync<T>(T TEntity) where T : class
+        {
+            await _context.Set<T>().AddAsync(TEntity);
+            return await _context.SaveChangesAsync();
         }
     }
 }

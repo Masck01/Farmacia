@@ -7,22 +7,26 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FarmaciaAvellaneda.Data;
 using FarmaciaAvellaneda.Models;
+using FarmaciaAvellaneda.Services;
+using FarmaciaAvellaneda.ViewModels;
 
 namespace FarmaciaAvellaneda.Controllers
 {
     public class ConceptosController : Controller
     {
         private readonly FarmaciaAvellanedaContext _context;
+        private readonly UsersServices _users;
 
-        public ConceptosController(FarmaciaAvellanedaContext context)
+        public ConceptosController(FarmaciaAvellanedaContext context, UsersServices users)
         {
+            _users = users;
             _context = context;
         }
 
         // GET: Conceptos
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Concepto.ToListAsync());
+            return View(await _users.ListOfAsync<Concepto>());
         }
 
         // GET: Conceptos/Details/5
@@ -54,11 +58,16 @@ namespace FarmaciaAvellaneda.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Descripcion,Tipo,Monto")] Concepto concepto)
+        public async Task<IActionResult> Create(ConceptoViewModel concepto)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(concepto);
+                await _context.Database.ExecuteSqlInterpolatedAsync($@"
+                        EXEC sp_create_deduccion
+                        @Descipcion={concepto.Descripcion},
+                        @Tipo={concepto.Tipo},
+                        @Monto={concepto.Monto},
+                        @Exento={concepto.Exento}");
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

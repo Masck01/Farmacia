@@ -1,78 +1,72 @@
-﻿@model IEnumerable<FarmaciaAvellaneda.Models.Liquidacion>
+﻿@*@model IEnumerable<FarmaciaAvellaneda.Models.Liquidacion>*@
+@model IEnumerable<FarmaciaAvellaneda.Models.Empleado>
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<div class="container jumbotron d-flex justify-content-center">
+    <div class="container">
+        <h2 class="display-4">Crear Nueva Liquidacion</h2>
+    </div>
+</div>
+<div class="container table-responsive table-responsive-sm table-responsive-md">
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.FechaDesde)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FechaHasta)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SalarioNeto)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PeriodoLiquidacion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Estado)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TotalRemunerado)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TotalDeduccion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Empleado)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaDesde)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaHasta)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SalarioNeto)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PeriodoLiquidacion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Estado)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TotalRemunerado)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TotalDeduccion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Empleado.UserId)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>
+                    Seleccionar Empleado
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Apellido)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Nombre)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cuit)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Estado)
+                </th>
+                <th>
+                    Categoria
+                </th>
+            </tr>
+        </thead>
+        <tbody class="table-hover">
+            @foreach (var empleado in Model)
+            {
+                <tr>
+                    <td>
+
+                        <a class="btn btn-info btn-outline-light" asp-action="Create" asp-route-id="@empleado.Id">Liquidar</a>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => empleado.Apellido)
+                    </td>
+                    <td>
+                        @Html.DisplayNameFor(model => empleado.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => empleado.Cuit)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => empleado.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => empleado.Estado)
+                    </td>
+                    <td i-role="@empleado.UserId">
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

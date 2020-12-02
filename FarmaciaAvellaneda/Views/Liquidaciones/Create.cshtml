@@ -1,66 +1,329 @@
-﻿@model FarmaciaAvellaneda.Models.Liquidacion
+﻿@*@model FarmaciaAvellaneda.Models.Liquidacion*@
+@using System.Globalization
+@model FarmaciaAvellaneda.ViewModels.LiquidacionViewModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Nueva Liquidacion";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    DateTimeFormatInfo info = CultureInfo.GetCultureInfo("es-AR").DateTimeFormat;
+    int n_liquidacion = 0;
 }
 
-<h1>Create</h1>
+@*<form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="@Model.Liquidacion.FechaDesde" class="control-label"></label>
+            <input asp-for="@Model.Liquidacion.FechaDesde" class="form-control" />
+            <span asp-validation-for="@Model.Liquidacion.FechaDesde" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Liquidacion.FechaHasta" class="control-label"></label>
+            <input asp-for="@Model.Liquidacion.FechaHasta" class="form-control" />
+            <span asp-validation-for="@Model.Liquidacion.FechaHasta" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Liquidacion.SalarioNeto" class="control-label"></label>
+            <input asp-for="@Model.Liquidacion.SalarioNeto" class="form-control" />
+            <span asp-validation-for="@Model.Liquidacion.SalarioNeto" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Liquidacion.PeriodoLiquidacion" class="control-label"></label>
+            <input asp-for="@Model.Liquidacion.PeriodoLiquidacion" class="form-control" />
+            <span asp-validation-for="@Model.Liquidacion.PeriodoLiquidacion" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Liquidacion.Estado" class="control-label"></label>
+            <input asp-for="@Model.Liquidacion.Estado" class="form-control" />
+            <span asp-validation-for="@Model.Liquidacion.Estado" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Liquidacion.TotalRemunerado" class="control-label"></label>
+            <input asp-for="@Model.Liquidacion.TotalRemunerado" class="form-control" />
+            <span asp-validation-for="@Model.Liquidacion.TotalRemunerado" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Liquidacion.TotalDeduccion" class="control-label"></label>
+            <input asp-for="@Model.Liquidacion.TotalDeduccion" class="form-control" />
+            <span asp-validation-for="@Model.Liquidacion.TotalDeduccion" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Liquidacion.EmpleadoId" class="control-label"></label>
+            <select asp-for="@Model.Liquidacion.EmpleadoId" class="form-control" asp-items="ViewBag.EmpleadoId"></select>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Crear" class="mt-4 w-50 btn btn-primary" />
+        </div>
+    </form>*@
+<div class="container">
+    <div class="d-flex flex-row">
 
-<h4>Liquidacion</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="FechaDesde" class="control-label"></label>
-                <input asp-for="FechaDesde" class="form-control" />
-                <span asp-validation-for="FechaDesde" class="text-danger"></span>
+        <div class="text-center flex-fill">
+            <i class="fas fa-first-aid fa-10x fa-align-center"></i>
+
+        </div>
+        <div class="flex-fill">
+
+            <address class="blockquote pt-2 pl-2 text-right">
+                <strong>@Model.Empresa.Nombre</strong><br /> @Model.Empresa.Direccion, CP 4000<br /> @Model.Empresa.Cuit<br /> <abbr title="Phone">P:</abbr> (381) 456-7890
+            </address>
+
+        </div>
+    </div>
+
+    <div class="d-flex flex-row">
+        <div class="card flex-fill">
+            <h5 class="card-header text-center bg-dark text-light">
+                Apellido y Nombre
+            </h5>
+            <div class="card-body">
+                <p class="card-text text-center text-dark">
+                    @Model.Empleado.Apellido, @Model.Empleado.Nombre
+                </p>
             </div>
-            <div class="form-group">
-                <label asp-for="FechaHasta" class="control-label"></label>
-                <input asp-for="FechaHasta" class="form-control" />
-                <span asp-validation-for="FechaHasta" class="text-danger"></span>
+        </div>
+        <div class="card flex-fill">
+            <h5 class="card-header text-center bg-dark text-light">
+                Legajo
+            </h5>
+            <div class="card-body">
+                <p class="card-text text-center text-dark">
+                    @Model.Empleado.Id
+                </p>
             </div>
-            <div class="form-group">
-                <label asp-for="SalarioNeto" class="control-label"></label>
-                <input asp-for="SalarioNeto" class="form-control" />
-                <span asp-validation-for="SalarioNeto" class="text-danger"></span>
+        </div>
+        <div class="card flex-fill">
+            <h5 class="card-header text-center bg-dark text-light">
+                C.U.I.L.
+            </h5>
+            <div class="card-body">
+                <p class="card-text text-center text-dark">
+                    @Model.Empleado.Cuit
+                </p>
             </div>
-            <div class="form-group">
-                <label asp-for="PeriodoLiquidacion" class="control-label"></label>
-                <input asp-for="PeriodoLiquidacion" class="form-control" />
-                <span asp-validation-for="PeriodoLiquidacion" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="d-flex flex-row">
+        <div class="card flex-fill">
+            <h5 class="card-header text-center bg-dark text-light">
+                Categoria
+            </h5>
+            <div class="card-body">
+                <p class="card-text text-center text-dark">
+                    <td i-role="@Model.Empleado.UserId"></td>
+                </p>
             </div>
-            <div class="form-group">
-                <label asp-for="Estado" class="control-label"></label>
-                <input asp-for="Estado" class="form-control" />
-                <span asp-validation-for="Estado" class="text-danger"></span>
+        </div>
+        <div class="card flex-fill">
+            <h5 class="card-header text-center bg-dark text-light">
+                Mes Liquidacion
+            </h5>
+            <div class="card-body">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fas fa-calendar-minus"></i>
+                        </span>
+                    </div>
+                    <select class="form-control" asp-items="@new SelectList(info.MonthNames)"></select>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="TotalRemunerado" class="control-label"></label>
-                <input asp-for="TotalRemunerado" class="form-control" />
-                <span asp-validation-for="TotalRemunerado" class="text-danger"></span>
+        </div>
+        <div class="card flex-fill">
+            <h5 class="card-header text-center bg-dark text-light">
+                Fecha
+            </h5>
+            <div class="card-body">
+                <div class="input-group">
+                    <input type="date" class="form-control" value="DateTime.Today.ToShortDateString()" />
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="TotalDeduccion" class="control-label"></label>
-                <input asp-for="TotalDeduccion" class="form-control" />
-                <span asp-validation-for="TotalDeduccion" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="d-flex flex-row">
+        <div class="card flex-fill">
+            <h5 class="card-header text-center bg-dark text-light">
+                N° Liquidacion
+            </h5>
+            <div class="card-body">
+                <p class="card-text text-center text-dark">
+                    @if (Model.Liquidacion != null)
+                    {
+                        n_liquidacion = Model.Liquidacion.Id++;
+                    }
+                    else
+                    {
+
+                        n_liquidacion++;
+                    }
+                    @n_liquidacion
+                </p>
+
             </div>
-            <div class="form-group">
-                <label asp-for="EmpleadoId" class="control-label"></label>
-                <select asp-for="EmpleadoId" class ="form-control" asp-items="ViewBag.EmpleadoId"></select>
+        </div>
+        <div class="card flex-fill">
+            <h5 class="card-header text-center bg-dark text-light">
+                Sueldo
+            </h5>
+            <div class="card-body">
+                <p class="card-text text-center text-dark">
+                    @Model.Concepto.Monto
+                </p>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+        </div>
+        <div class="card flex-fill">
+            <h5 class="card-header text-center bg-dark text-light">
+                Duplicado
+            </h5>
+            <div class="card-body">
+                <p class="card-text text-center text-dark">
+                    <input type="checkbox" />
+                </p>
             </div>
-        </form>
+        </div>
+    </div>
+    <div class="d-flex flex-row bg-gradient-light mb-1">
+        <table class="table table-responsive-sm table-responsive-md table-hover">
+            <thead class="bg-dark">
+                <tr>
+                    <th>
+                        <h5>
+
+                            Código
+                        </h5>
+                    </th>
+                    <th>
+                        <h5>
+                            Detalle
+                        </h5>
+                    </th>
+                    <th>
+                        <h5>
+                            Unidad
+                        </h5>
+                    </th>
+                    <th>
+                        <h5>
+                            Haberes
+                        </h5>
+                    </th>
+                    <th>
+                        <h5>
+                            Deducciones
+                        </h5>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        @Model.Concepto.Id
+                    </td>
+                    <td>
+                        @Model.Concepto.Descripcion
+                    </td>
+                    <td>
+
+                    </td>
+                    <td>
+                        @Model.Concepto.Monto
+                    </td>
+                    <td>
+                        Default
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="d-flex flex-row bg-gradient-light mb-1">
+        <table class="table table-responsive-sm table-responsive-md table-hover">
+            <thead class="bg-dark">
+                <tr>
+                    <th>
+                        <h5>
+                            Lugar de pago
+
+                        </h5>
+                    </th>
+                    <th>
+                        <h5>
+                            Remunerar
+
+                        </h5>
+                    </th>
+                    <th>
+                        <h5>
+
+                            No Remunerar
+                        </h5>
+
+                    </th>
+                    <th>
+                        <h5>
+
+                            Total Deducciones
+                        </h5>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+    <div class="d-flex flex-row">
+        <div class="card flex-fill">
+            <h5 class="card-header text-center bg-dark text-light">
+                Banco de Acreditación
+            </h5>
+            <div class="card-body">
+                <p class="card-text text-center text-dark">
+                    Card content
+                </p>
+            </div>
+        </div>
+        <div class="card flex-fill">
+            <h5 class="card-header text-center bg-dark text-light">
+                Cuenta
+            </h5>
+            <div class="card-body">
+                <p class="card-text text-center text-dark">
+                    Card content
+                </p>
+            </div>
+        </div>
+        <div class="card flex-fill">
+            <h5 class="card-header text-center bg-dark text-light">
+                Total Neto
+            </h5>
+            <div class="card-body">
+                <p class="card-text text-center text-dark">
+                    Card content
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex flex-row">
+        <div class="jumbotron shadow-sm p-2 flex-fill">
+            <h3 class="text-left align-top">
+                Son pesos:
+            </h3>
+        </div>
+        <div class="jumbotron shadow-sm p-2 flex-fill">
+            <h3 class="text-right align-bottom">
+                Firma
+            </h3>
+        </div>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-danger btn-outline-dark" asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

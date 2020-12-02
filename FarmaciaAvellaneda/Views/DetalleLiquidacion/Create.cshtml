@@ -5,12 +5,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
+<h1>Crear</h1>
 
 <h4>DetalleLiquidacion</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="d-flex flex-column flex-grow-1 p-2">
+    <div>
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -32,14 +32,14 @@
                 <select asp-for="LiquidacionId" class ="form-control" asp-items="ViewBag.LiquidacionId"></select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Crear" class="mt-4 w-50 btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-outline-dark btn-danger mb-4" asp-action="Index">Volver</a>
 </div>
 
 @section Scripts {
